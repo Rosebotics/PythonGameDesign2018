@@ -79,7 +79,7 @@ xpos = 50
 xpos2 = 500
 clock = pygame.time.Clock()
 while True:
-    clock.tick(500)
+    clock.tick(60)
     for event in pygame.event.get():
         print(event)
         if event.type == pygame.QUIT:
