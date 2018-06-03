@@ -1,5 +1,6 @@
-# This continues the previous module.  I have put it into its own module only to help my sequencing.
-# Students start with the following:
+# This continues the previous module.
+# Students will copy their previous code into their version of this module.
+# Students will then start with the following:
 
 # My first Pygame program.
 # Authors: Many people and <PUT-YOUR-NAME-HERE>
