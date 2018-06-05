@@ -12,4 +12,3 @@ while True:
     pygame.display.update()
     screen.fill((255, 0, 0))
     pygame.display.update()
-    
