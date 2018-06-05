@@ -21,8 +21,10 @@ while True:
 
     #Big yellow circle
     pygame.draw.circle(screen,(225,225, 0),(320, 240),210)
-    pygame.draw.circle(screen,(0, 0, 0),(240,160),)
-    pygame.draw.circle(screen,(0, 0, 0),)
+    pygame.draw.circle(screen,(0, 0, 0),(240,160),25)
+    pygame.draw.circle(screen,(0, 0, 0),(400, 160), 25)
+    pygame.draw.rect(screen, (100, 0, 0),(200, 320, 240, 30))
+
     pygame.draw.circle(screen, (225, 225, 0),(320,240), 50, 5)
     pygame.draw.circle(screen, (0, 225, 225), (320, 240),20)
     pygame.display.update()
