@@ -18,6 +18,6 @@ while True:
         print(event)
         if event.type == pygame.QUIT:
             sys.exit()
-    screen.fill((22, 32, 22))
+    screen.fill((174, 214, 241))
     pygame.display.update()
 
