@@ -1,5 +1,5 @@
 # My first Pygame program.
-# Authors: Many people and <PUT-YOUR-NAME-HERE>
+# Authors: Many people and MichaelN
 
 import pygame
 import sys
@@ -7,7 +7,11 @@ import sys
 pygame.init()
 screen = pygame.display.set_mode((640, 480))
 while True:
-    pygame.display.update()
+    for event in pygame.event.get():
+        print(event)
+        if event.type == pygame.quit():
+            sys.exit()
+            pygame.display.update()
 
 
 # TODO: With your instructor's help (live coding):
