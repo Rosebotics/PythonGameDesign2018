@@ -3,7 +3,7 @@
 x = 9
 
 print("Hello, World")
-print('David Fisher can make Python programs!!!!')
+print('Jack Foster can make Python programs!!!!')
 print('one', 'two', 'through my shoe')
 print(3 + 9)
 print('3 + 9', 'versus', 3 + 9)
