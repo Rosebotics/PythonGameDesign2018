@@ -1,3 +1,21 @@
+# My first Pygame program.
+# Authors: Many people and Michael Tanoos
+
+import pygame
+import sys
+
+pygame.init()
+screen = pygame.display.set_mode((640, 480))
+while True:
+    for event in pygame.event.get():
+        print(event)
+        if event.type == pygame.QUIT:
+            sys.exit()
+    screen.fill((25, 105, 5)) #Dark Green
+    pygame.display.update()
+
+
+
 # TODO: Copy all of your   02-TheGameLoop.py   program and put it below this comment.
 # TODO    One way to do so is:
 # TODO      1. Inside  02-TheGameLoop.py,  do:
