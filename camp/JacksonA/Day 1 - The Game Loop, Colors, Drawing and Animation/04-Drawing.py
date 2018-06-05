@@ -10,11 +10,19 @@
 import pygame
 import sys
 pygame.init()
-pygame.display.set_caption('My first program')
+pygame.display.set_caption("Drawing")
 screen = pygame.display.set_mode((640, 480))
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
     screen.fill((110,11,112))
+
+
+
+    pygame.draw.circle(screen, (255,255,0),(320,240),210, )
+    pygame.draw.circle (screen,(0,0,0 ),(240,160),25,  )
+    pygame.draw.circle( screen,(0,0,0),(400,160),25,  )
+    pygame.draw.circle(screen, (255,0,0),(320,240),20,  )
+    pygame.draw.rect(screen,(100,0,0), (200,320,240,30))
     pygame.display.update()
