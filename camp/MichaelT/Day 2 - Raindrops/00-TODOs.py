@@ -28,7 +28,7 @@ class Raindrop:
 
 
 class Hero:
-    def __init__(self, screen, x, y, with_umbrella, without_umbrella): 
+    def __init__(self, screen, x, y, with_umbrella, without_umbrella):
         # TODO. Inititalize this Hero, as follows:
         # TODO    - Store the screen.
         # TODO    - Set the initial position of this Hero to x and y.
@@ -44,7 +44,7 @@ class Hero:
         self.with_umbrella = with_umbrella
         self.last_hit_time = 0
         self.image_umbrella = pygame.image.load(self.with_umbrella).convert()
-
+ 
     def draw(self):
         # TODO. Draw (blit) this Hero, at this Hero's position, as follows:
         # TODO    If the current time is greater than this Hero's last_hit_time + 1,
