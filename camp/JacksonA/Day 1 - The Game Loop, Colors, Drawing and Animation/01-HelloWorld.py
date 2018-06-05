@@ -1,8 +1,8 @@
 # Authors: David Mutchler, Dave Fisher, and many others before them.
 
-print('Hello, World')
-print('hi there')
-print('one', 'two', 'through my shoe')
+print("Hello, World")
+print("Jackson Arthur can make python programs")
+print("one', 'two', 'through my shoe")
 print(3 + 9)
 print('3 + 9', 'versus', 3 + 9)
 
@@ -11,3 +11,13 @@ print('3 + 9', 'versus', 3 + 9)
 # TODO:    2. Two big numbers, followed by their sum.
 # TODO:    3. The result of 3,607 multiplied by 34,227.  (Hint: the result is interesting.)
 # TODO:    4. Anything else you like!
+print
+
+
+print(8+6+7+5+3+9)
+print('opening software @jonathanshomepage.exe')
+print('i found the virus')
+print('reboot/system.')
+print('command failed')
+print('Deleting files')
+print('no the virus has deleted every thing')
