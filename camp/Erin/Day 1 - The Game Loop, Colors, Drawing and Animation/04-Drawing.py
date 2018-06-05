@@ -1,8 +1,21 @@
-# TODO: Copy all of your   03-Colors.py   program and put it below this comment.
-# TODO    One way to do so is:
-# TODO      1. Inside  03-Colors.py,  do:
-# TODO           -- Control-A (to SELECT the entire contents of the file, then
-# TODO           -- Control-C (to COPY that entire selection)
-# TODO      2. Inside this file:
-# TODO           -- Click below this comment, then
-# TODO           -- Control-V (to PASTE the copied code into this file.
+# done: Copy all of your   03-Colors.py   program and put it below this comment.
+import pygame
+import sys
+
+pygame.init()
+pygame.display.set_caption("       Drawings")
+screen = pygame.display.set_mode((640, 480))
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            sys.exit()
+    screen.fill((0, 255, 180))
+
+    # draw shapes on the screen
+    pygame.draw.circle(screen, (255, 255, 0), (320, 240), 240, )
+    pygame.draw.circle(screen, (255, 255, 255), (180, 160), 70, )
+    pygame.draw.circle(screen, (255, 255, 255), (460, 160), 70, )
+    pygame.draw.circle(screen, (255, 255, 255), (320, 250), 40, )
+    pygame.draw.rect(screen, (255, 0, 0), (200, 350, 240, 30), 70, )
+
+    pygame.display.update()
