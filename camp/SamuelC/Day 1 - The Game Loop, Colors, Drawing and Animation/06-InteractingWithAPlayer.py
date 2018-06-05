@@ -15,6 +15,10 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
+
+    pressed_keys = pygame.key.get_pressed()
+    if pressed_keys[pygame.K_RIGHT]:
+        nose_y_position = 0
     screen.fill((234, 162, 223))
 
     # drawing shapes on the screen
@@ -25,7 +29,7 @@ while True:
     # rtight eye
     pygame.draw.circle(screen, (0, 255, 0), (400, 160), 66, 40)
     # nose
-    nose_y_position = nose_y_position + 122
+    nose_y_position = nose_y_position + 5
     if nose_y_position > 400:
         nose_y_position = 200
     pygame.draw.circle(screen, (255, 0, 0), (320, nose_y_position), 40, 20)
