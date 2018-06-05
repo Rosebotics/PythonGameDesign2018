@@ -7,9 +7,9 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
-    screen.fill((234, 162, 123.456789))
+    screen.fill((3.14, 3.14, 3.14))
     pygame.display.update()
-    
+
 # TODO: Copy all of your   02-TheGameLoop.py   program and put it below this comment.
 # TODO    One way to do so is:
 # TODO      1. Inside  02-TheGameLoop.py,  do:
