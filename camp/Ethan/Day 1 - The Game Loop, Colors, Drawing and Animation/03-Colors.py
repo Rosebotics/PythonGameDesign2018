@@ -15,5 +15,5 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
-    screen.fill(225(,225 ,0 ))
+    screen.fill((0,147,180 ))
     pygame.display.update()
