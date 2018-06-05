@@ -11,9 +11,6 @@ while True:
     screen.fill((200, 0, 0))
 
 
-    # pygame.draw.circle(screen, (50, 50, 255), (320, 240), 50, 5)
-    # pygame.draw.circle(screen, (0, 255, 255), (320, 240), 20)
-
     pygame.draw.circle(screen, (255, 255, 0), (320, 240), 210)
     pygame.draw.circle(screen, (0, 0, 0), (240, 160), 25)
     pygame.draw.circle(screen, (0, 0, 0), (400, 160), 25)
