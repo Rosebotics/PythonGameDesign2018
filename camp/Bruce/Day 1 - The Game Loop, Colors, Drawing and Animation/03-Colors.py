@@ -5,6 +5,7 @@ import pygame
 import sys
 
 pygame.init()
+pygame.display.set_caption('TETROMINO')
 screen = pygame.display.set_mode((2000, 2000))
 while True:
     for event in pygame.event.get():
