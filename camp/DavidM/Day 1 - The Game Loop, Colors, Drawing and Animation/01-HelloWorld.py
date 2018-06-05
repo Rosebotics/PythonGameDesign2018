@@ -1,0 +1,20 @@
+# Authors: David Mutchler, Dave Fisher, and many others before them.
+
+print('Hello, World')
+print("it's a lovely day")
+print('hi there')
+print('one', 'two', 'through my shoe')
+print(3 + 9)
+print('3 + 9', 'versus', 3 + 9)
+print('Hello, Bilbo.  Hows the ring?')
+
+# TODO:  After we talk together about the above, add PRINT statements that print:
+# TODO:    1. A Hello message to a friend.
+# TODO:    2. Two big numbers, followed by their sum.
+# TODO:    3. The result of 3,607 multiplied by 34,227.  (Hint: the result is interesting.)
+# TODO:    4. Anything else you like!
+
+print('hello, number', 5)
+print(49994, 2222, 49994 + 2222, 'is cool')
+
+print(3607 * 34227)
