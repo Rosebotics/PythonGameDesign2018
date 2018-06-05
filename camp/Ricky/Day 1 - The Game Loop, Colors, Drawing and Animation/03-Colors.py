@@ -11,11 +11,13 @@ import pygame
 import sys
 
 pygame.init()
+pygame.display.set_caption('this is my first program')
 screen = pygame.display.set_mode((640, 480))
 while True:
     for event in pygame.event.get():
         print(event)
         if event.type == pygame.QUIT:
             sys.exit()
-    screen.fill((124, 68, 173))
+    screen.fill((22, 32, 22))
     pygame.display.update()
+
