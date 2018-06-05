@@ -28,7 +28,7 @@ class Raindrop:
 
 
 class Hero:
-    def __init__(self, screen, x, y, with_umbrella, without_umbrella):
+    def __init__(self, screen, x, y, with_umbrella, without_umbrella): 
         # TODO. Inititalize this Hero, as follows:
         # TODO    - Store the screen.
         # TODO    - Set the initial position of this Hero to x and y.
