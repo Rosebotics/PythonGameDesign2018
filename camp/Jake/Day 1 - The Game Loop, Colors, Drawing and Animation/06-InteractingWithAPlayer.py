@@ -13,7 +13,7 @@ nose_y_position = 310
 
 
 while True:
-    clock.tick(50)
+    clock.tick(100)
     for event in pygame.event.get ():
         if event.type == pygame.QUIT:
             sys.exit()
