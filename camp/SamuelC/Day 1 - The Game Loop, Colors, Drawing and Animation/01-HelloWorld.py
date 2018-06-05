@@ -1,7 +1,7 @@
 # Authors: David Mutchler, Dave Fisher, and many others before them.
 
 print('Hello, World')
-print('hi there')
+print('Sam')
 print('one', 'two', 'through my shoe')
 print(3 + 9)
 print('3 + 9', 'versus', 3 + 9)
