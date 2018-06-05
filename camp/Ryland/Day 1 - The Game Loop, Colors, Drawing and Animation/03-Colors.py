@@ -9,7 +9,7 @@ import sys
 
 
 pygame.init()
-pygame.display.set_caption("Ryland Hayes is Awesome")
+pygame.display.set_caption("Ryland Hayes is Awesome  ")
 pygame.display.set_mode((640, 480))
 screen = pygame.display.set_mode((640, 480))
 while True:
