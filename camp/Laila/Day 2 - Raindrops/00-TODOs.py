@@ -32,14 +32,7 @@ class Raindrop:
 
 class Hero:
     def __init__(self, screen, x, y, with_umbrella, without_umbrella):
-        # TODO. Inititalize this Hero, as follows:
-        # TODO    - Store the screen.
-        # TODO    - Set the initial position of this Hero to x and y.
-        # TODO    - Set the image of this Hero WITH an umbrella to the given with_umbrella file.
-        # TODO    - Set the image of this Hero WITHOUT an umbrella to the given without_umbrella file.
-        # TODO    - Set the "last hit time" to 0.
-        # TODO  Use instance variables:
-        # TODO     screen  x  y  image_umbrella   image_no_umbrella  last_hit_time.
+
         self.screen = screen
         self.x = x
         self.y = y
@@ -62,18 +55,19 @@ class Hero:
 
 
 class Cloud:
-    def __init__(self, screen, x, y, image):
-        # TODO. Inititalize this Cloud, as follows:
-        # TODO    - Store the screen.
-        # TODO    - Set the initial position of this Cloud to x and y.
-        # TODO    - Set the image of this Cloud to the given image.
+    def __init__(self, screen, x, y, file):
+
         # TODO    - Set the list of Raindrop objects for this Cloud to the empty list.
         # TODO  Use instance variables:
         # TODO     screen  x  y  image   raindrops.
-        pass
+        self.screen = screen
+        self.x = x
+        self.y = y
+        self.cloud_image = pygame.image.load(file).convert()
+        self.direction = 1
 
     def draw(self):
-        # TODO. Draw (blit) this Cloud's image at its current position.
+        self.screen.blit(self.cloud_image,(self.x, self.y))
         pass
 
     def rain(self):
@@ -81,20 +75,28 @@ class Cloud:
         # TODO    where the new Raindrop starts at:
         # TODO      - x is a random integer between this Cloud's x and this Cloud's x + 300.
         # TODO      - y is this Cloud's y + 100.
-        pass
+        raindrop = raindrop(self,screen, random_x,self)
+
+    def move(self, dx,dy):
+        self.x = self.x + (dx * self.direction)
+        self.y = self.y + dy
+        if self.x > 1000 - 300:
+            self.direction = -1
+        elif self.x < 0:
+            self.direction = 1
 
 
 def main():
-    # TODO: Initialize the game, display a captian, and set   screen   to a 1000x600 Screen.
+
     pygame.init()
     pygame.display.set_caption("make the screen white")
     screen = pygame.display.set_mode((1000,600))
-    screen.fill((118,122,121))
+    screen.fill((255,255,255))
 
-    # TODO: Make a Clock, Hero and Cloud with appropriate images, starting at appropriate positions.
+
     ships= Hero(screen,230,300,"Mike_umbrella.png","Mike.png")
-   # TODO: Enter the game loop, with a clock tick of 60 (or so) at each iteration.
-    # TODO    Make the pygame.QUIT event stop the game.
+    me = Cloud(screen,300,50,"cloud.png")
+
 
     clock = pygame.time.Clock()
     while True:
@@ -105,25 +107,22 @@ def main():
                 sys.exit()
         pressed_keys = pygame.key.get_pressed()
         if pressed_keys[pygame.K_RIGHT]:
-            ships.move(1,0)
+            ships.move(3,0)
         if pressed_keys[pygame.K_LEFT]:
-            ships.move(-1,-0)
+            ships.move(-3,-0)
         if pressed_keys[pygame.K_UP]:
-                ships.move(-0, -1)
+                ships.move(-0, -3)
         if pressed_keys[pygame.K_DOWN]:
-                ships.move(0, 1)
-        ships.draw()
+                ships.move(0, 3)
 
+        me.move(1,0)
+
+        ships.draw()
+        me.draw()
         pygame.display.update()
 
-    # TODO: Inside the game loop, get the list of keys that are currently pressed.
-    # TODO    Arrange so that the Cloud moves:
-    # TODO      1 pixel to the right if the Right Arrow key (pygame.K_RIGHT) is pressed.
-    # TODO      1 pixel to the left if the Left Arrow key (pygame.K_LEFT) is pressed.
-    # TODO      1 pixel up if the Up Arrow key (pygame.K_UP) is pressed.
-    # TODO      1 pixel down if the Down Arrow key (pygame.K_DOWN) is pressed.
 
-    # TODO: Inside the game loop, draw the screen, Hero and Cloud.
+
 
     # TODO: Inside the game loop, make the Cloud "rain", and then:
     # TODO    For each Raindrop in the Cloud's list of raindrops:
@@ -134,5 +133,5 @@ def main():
     pass
 
 
-# TODO: Call main.
+
 main()
