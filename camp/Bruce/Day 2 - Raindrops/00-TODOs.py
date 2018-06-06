@@ -37,7 +37,7 @@ class Hero:
         self.last_hit_time = 0
 
 
-    def draw(self):
+    def draw(self): 
         self.screen.blit(self.image_without_umbrella, (self.x, self.y))
         self.screen.blit(self.image_with_umbrella, (self.x, self.y))
         # TODO    If the current time is greater than this Hero's last_hit_time + 1,
