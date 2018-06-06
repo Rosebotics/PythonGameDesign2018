@@ -4,7 +4,7 @@ import sys
 # Global setup
 pygame.init()
 pygame.display.set_caption("Template")
-screen = pygame.display.set_mode((1000, 600))
+screen = pygame.display.set_mode((1200, 1200))
 
 
 def main():
@@ -17,5 +17,3 @@ def main():
 
         pygame.display.update()
 
-
-main()

@@ -6,8 +6,9 @@
 # TODO      2. Inside this file:
 # TODO           -- Click below this comment, then
 # TODO           -- Control-V (to PASTE the copied code into this file.
+
 # My first Pygame program.
-# Authors: Many people and <Aarna-Koduru>
+# Authors: Many people and Rachel
 
 import pygame
 import sys
@@ -16,13 +17,12 @@ pygame.init()
 screen = pygame.display.set_mode((640, 480))
 while True:
     for event in pygame.event.get():
-        print(event)
-        if event.type == pygame.QUIT:
+      print  ( event )
+    if event . type == pygame.QUIT:
             sys.exit()
-    screen.fill((223, 25, 25))
     pygame.display.update()
 
-
+    screen.fill ((255, 25,5))   # Hot pink
 # TODO: With your instructor's help (live coding):
 #   - Put your name as an author.
 #   - Make the game loop be able to stop more gracefully.
