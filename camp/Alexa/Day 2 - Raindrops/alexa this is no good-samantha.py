@@ -5,13 +5,17 @@ import random  # Note this!
 
 
 class Raindrop:
-    def __init__(self, screen, x, y):
+    def __init__(self, screen, x, y, raindrop_filename):
         # TODO. Inititalize this Raindrop, as follows:
         # TODO    - Store the screen.
         # TODO    - Set the initial position of the Raindrop to x and y.
         # TODO    - Set the initial speed to a random integer between 5 and 18.
         # TODO  Use instance variables:   screen  x  y  speed.
-        pass
+        self.screen = screen
+        self.x = x
+        self.y = y
+        self.raindrop_filename = raindrop_filename
+        self.image_raindrop = pygame.image.load(self.raindrop_filename).convert()
 
     def move(self):
         # TODO. Change the  y  position of this Raindrop by its speed.
@@ -24,8 +28,7 @@ class Raindrop:
     def draw(self):
         # TODO. Draw a vertical line that is 5 pixels long, 2 pixels thick,
         # TODO    from the current position of this Raindrop.
-
-        pass
+        self.screen.blit(self.image_raindrop, (self.x, self.y))
 
 
 class Hero:
@@ -40,7 +43,6 @@ class Hero:
         self.image_umbrella = pygame.image.load(self.with_umbrella).convert()
 
     def draw(self):
-        ...
         self.screen.blit(self.image_umbrella, (self.x, self.y))
 
     def move(self, dx, dy):
