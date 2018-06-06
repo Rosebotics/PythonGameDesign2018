@@ -48,7 +48,6 @@ class Hero:
     def draw(self):
         self.screen.blit(self.without_umbrella, (self.x, self.y))
 
-
     def hit_by(self, raindrop):
         # TODO: Return True if this Hero is currently colliding with the given Raindrop.
         pass
