@@ -120,6 +120,7 @@ def main():
     clock = pygame.time.Clock()
     hero = Hero(screen,0,300,"Mike_umbrella.png", "Mike.png" )
     cloud1 = Cloud(screen, 0, 100, "cloud.png")
+    raindrop = Raindrop(screen, 0, 0, "Raindrop.png")
     # TODO: Enter the game loop, with a clock tick of 60 (or so) at each iteration.
     while True:
         clock.tick(60)
@@ -144,6 +145,7 @@ def main():
         screen.fill((233,45,10))
         hero.draw()
         cloud1.draw()
+        raindrop.draw()
         pygame.display.update()
 
     # TODO    Make the pygame.QUIT event stop the game.
