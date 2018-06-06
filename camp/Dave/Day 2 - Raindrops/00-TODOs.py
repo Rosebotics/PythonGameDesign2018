@@ -29,27 +29,31 @@ class Raindrop:
 
 class Hero:
     def __init__(self, screen, x, y, with_umbrella, without_umbrella):
-        # TODO. Inititalize this Hero, as follows:
-        # TODO    - Store the screen.
-        # TODO    - Set the initial position of this Hero to x and y.
-        # TODO    - Set the image of this Hero WITH an umbrella to the given with_umbrella file.
-        # TODO    - Set the image of this Hero WITHOUT an umbrella to the given without_umbrella file.
-        # TODO    - Set the "last hit time" to 0.
-        # TODO  Use instance variables:
-        # TODO     screen  x  y  image_umbrella   image_no_umbrella  last_hit_time.
-        pass
+        # DONE. Inititalize this Hero, as follows:
+        # DONE    - Store the screen.
+        self.screen = screen
+        # DONE    - Set the initial position of this Hero to x and y.
+        self.x = x
+        self.y = y
+        # DONE    - Set the image of this Hero WITH an umbrella to the given with_umbrella file.
+        self.image_with_umbrella = pygame.image.load(with_umbrella).convert()
+        # DONE    - Set the image of this Hero WITHOUT an umbrella to the given without_umbrella file.
+        self.image_without_umbrella = pygame.image.load(without_umbrella).convert()
 
+        # DONE    - Set the "last hit time" to 0.
+        self.last_hit_time = 0
 
     def draw(self):
         # TODO. Draw (blit) this Hero, at this Hero's position, as follows:
         # TODO    If the current time is greater than this Hero's last_hit_time + 1,
         # TODO      draw this Hero WITHOUT an umbrella,
         # TODO      otherwise draw this Hero WITH an umbrella.
-        pass
+        self.screen.blit(self.image_without_umbrella, (self.x, self.y))
 
     def hit_by(self, raindrop):
         # TODO: Return True if this Hero is currently colliding with the given Raindrop.
         pass
+
 
 class Cloud:
     def __init__(self, screen, x, y, image):
@@ -89,7 +93,8 @@ def main():
     # DONE: Make a Cloud with appropriate images, starting at appropriate positions.
     cloud = Cloud(screen, 300, 50, "cloud.png")
 
-    # TODO: Make a Hero with appropriate images, starting at appropriate positions.
+    # DONE: Make a Hero with appropriate images, starting at appropriate positions.
+    mike = Hero(screen, 300, 400, "Mike_umbrella.png", "Mike.png")
 
     # DONE: Enter the game loop, with a clock tick of 60 (or so) at each iteration.
     # DONE    Make the pygame.QUIT event stop the game.
@@ -119,6 +124,7 @@ def main():
 
         # TODO: Inside the game loop, draw the screen, Hero and Cloud.
         cloud.draw()
+        mike.draw()
 
         # TODO: Inside the game loop, make the Cloud "rain", and then:
         # TODO    For each Raindrop in the Cloud's list of raindrops:
