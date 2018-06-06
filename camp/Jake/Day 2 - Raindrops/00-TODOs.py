@@ -29,15 +29,28 @@ class Raindrop:
 
 class Hero:
     def __init__(self, screen, x, y, with_umbrella, without_umbrella):
-        # TODO. Inititalize this Hero, as follows:
-        # TODO    - Store the screen.
+        # DONE: Hero and Cloud with appropriate images, starting at appropriate positions
+        self.screen = screen
+        self.x = x
+        self.y = y
+        self.image_with_umbrella = pygame.image.load(with_umbrella).convert()
+        self.image_with_umbrella = pygame.image.load(without_umbrella).convert()
+
+
+        # DONE. Inititalize this Hero, as follows:
+        # DONE    - Store the screen.
+
         # TODO    - Set the initial position of this Hero to x and y.
+
         # TODO    - Set the image of this Hero WITH an umbrella to the given with_umbrella file.
+
         # TODO    - Set the image of this Hero WITHOUT an umbrella to the given without_umbrella file.
+
         # TODO    - Set the "last hit time" to 0.
+        self.last_hit_time = 0
         # TODO  Use instance variables:
         # TODO     screen  x  y  image_umbrella   image_no_umbrella  last_hit_time.
-        pass
+
 
 
     def draw(self):
@@ -45,7 +58,9 @@ class Hero:
         # TODO    If the current time is greater than this Hero's last_hit_time + 1,
         # TODO      draw this Hero WITHOUT an umbrella,
         # TODO      otherwise draw this Hero WITH an umbrella.
-        pass
+        self.screen.blit(self.image_with_umbrella (self.x, self.y))
+
+
 
     def hit_by(self, raindrop):
         # TODO: Return True if this Hero is currently colliding with the given Raindrop.
@@ -88,8 +103,9 @@ def main():
     # DONE: Make a Clock
     clock = pygame.time.Clock()
 
-    #TODO: Hero and Cloud with appropriate images, starting at appropriate positions
+
     cloud = Cloud(screen, 300, 50, 'cloud.png')
+    mike = Hero(screen, 300, 400, 'Mike_umbrella.png', 'Mike.png')
     # DONE: Enter the game loop, with a clock tick of 60 (or so) at each iteration.
     # DONE    Make the pygame.QUIT event stop the game.
     while True:
@@ -120,6 +136,7 @@ def main():
 
         # TODO: Inside the game loop, draw the screen, Hero and Cloud.
         cloud.draw()
+        mike.draw()
 
         # TODO: Inside the game loop, make the Cloud "rain", and then:
         # TODO    For each Raindrop in the Cloud's list of raindrops:
