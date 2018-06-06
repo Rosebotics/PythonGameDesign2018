@@ -5,13 +5,18 @@ import random  # Note this!
 
 
 class Raindrop:
-    def __init__(self, screen, x, y):
+    def __init__(self, screen, x, y, raindrop_file):
         # TODO. Inititalize this Raindrop, as follows:
         # TODO    - Store the screen.
         # TODO    - Set the initial position of the Raindrop to x and y.
         # TODO    - Set the initial speed to a random integer between 5 and 18.
         # TODO  Use instance variables:   screen  x  y  speed.
-        pass
+        self.screen = screen
+        self.x = x
+        self.y = y
+        self.raindrop_file = raindrop_file
+        self.image_raindrop = pygame.image.load(self.raindrop_file).convert()
+        self.image_raindrop = pygame.transform.scale(self.image_raindrop, (40, 40,))
 
     def move(self):
         # TODO. Change the  y  position of this Raindrop by its speed.
@@ -24,7 +29,7 @@ class Raindrop:
     def draw(self):
         # TODO. Draw a vertical line that is 5 pixels long, 2 pixels thick,
         # TODO    from the current position of this Raindrop.
-        pass
+        self.screen.blit(self.image_raindrop, (self.x, self.y))
 
 
 class Hero:
@@ -74,11 +79,15 @@ class Cloud:
         # TODO    - Set the list of Raindrop objects for this Cloud to the empty list.
         # TODO  Use instance variables:
         # TODO     screen  x  y  image   raindrops.
-        pass
-
+        self.screen = screen
+        self.x = x
+        self.y = y
+        self.image = image
+        self.image_cloud = pygame.image.load(self.image).convert()
+        self.direction = 1
     def draw(self):
         # TODO. Draw (blit) this Cloud's image at its current position.
-        pass
+        self.screen.blit(self.image_cloud, (self.x, self.y))
         # TODO: Return True if this
 
     def rain(self):
@@ -86,9 +95,15 @@ class Cloud:
         # TODO    where the new Raindrop starts at:
         # TODO      - x is a random integer between this Cloud's x and this Cloud's x + 300.
         # TODO      - y is this Cloud's y + 100.
-        pass
-
-
+        random_x = random.randint(0, 300) + self.x
+        raindrop = Raindrop(self.screen, random_x, self.y + 100)
+    def move(self, dx, dy):
+        self.x = self.x + (dx * self.direction)
+        self.y = self.y + dy
+        if self.x > 1000 - 300:
+            self.direction = -1
+        elif self.x < 0:
+            self.direction = 1
 def main():
     # TODO: Initialize the game, display a captian, and set   screen   to a 1000x600 Screen.
     pygame.init()
@@ -97,6 +112,8 @@ def main():
     # TODO: Make a Clock, Hero and Cloud with appropriate images, starting at appropriate positions.
     clock = pygame.time.Clock()
     hero = Hero(screen, 0, 400, "Mike_umbrella.png","Mike.png")
+    cloud = Cloud(screen, 500, 100, "cloud.png")
+    raindrop = Raindrop(screen, 500, 104, "11971185311926706097Gioppino_Basketball.svg.hi.png")
     # TODO: Enter the game loop, with a clock tick of 60 (or so) at each iteration.
     # TODO    Make the pygame.QUIT event stop the game.
     while True:
@@ -115,8 +132,11 @@ def main():
         if pressed_keys[pygame.K_DOWN]:
             hero.move(0, 4)
 
+        cloud.move(1, 0)
         screen.fill((255, 255, 255))
         hero.draw()
+        cloud.draw()
+        raindrop.draw()
         pygame.display.update()
 
     # TODO: Inside the game loop, get the list of keys that are currently pressed.
