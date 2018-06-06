@@ -31,17 +31,23 @@ class Hero:
     def __init__(self, screen, x, y, with_umbrella, without_umbrella):
         # TODO. Inititalize this Hero, as follows:
         # TODO    - Store the screen.
-        # TODO    - Set the initial position of this Hero to x and y.
+        self.screen = screen
+        # ODNE    - Set the initial position of this Hero to x and y.
+        self.x = x
+        self.y = y
         # TODO    - Set the image of this Hero WITH an umbrella to the given with_umbrella file.
+        self.image_with_umbrella = pygame.image.load(with_umbrella).convert()
         # TODO    - Set the image of this Hero WITHOUT an umbrella to the given without_umbrella file.
+        self.image_without_umbrella = pygame.image.load(without_umbrella).convert()
         # TODO    - Set the "last hit time" to 0.
         # TODO  Use instance variables:
         # TODO     screen  x  y  image_umbrella   image_no_umbrella  last_hit_time.
-        pass
+
 
 
     def draw(self):
         # TODO. Draw (blit) this Hero, at this Hero's position, as follows:
+        self.screen.blit(self.without_umbrella, (self.x, self.y))
         # TODO    If the current time is greater than this Hero's last_hit_time + 1,
         # TODO      draw this Hero WITHOUT an umbrella,
         # TODO      otherwise draw this Hero WITH an umbrella.
@@ -96,6 +102,7 @@ def main():
     cloud = Cloud(screen, 300, 50, "cloud.png")
 
     #TODO Make a Hero
+    Luigi = Hero(screen, 300, 400, "Mike_umbrella.png", "Mike.png" )
 
 
     # DONE: Enter the game loop, with a clock tick of 60 (or so) at each iteration.
@@ -126,6 +133,7 @@ def main():
         # TODO: Inside the game loop, draw the screen, Hero and Cloud.
         screen.fill((255, 255, 255))
         cloud.draw()
+        Luigi.draw()
 
 
         # TODO: Inside the game loop, make the Cloud "rain", and then:
