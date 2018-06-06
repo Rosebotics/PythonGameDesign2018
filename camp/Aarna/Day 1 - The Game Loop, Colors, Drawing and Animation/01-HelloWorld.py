@@ -5,7 +5,11 @@ print('hi there')
 print('one', 'two', 'through my shoe')
 print(3 + 9)
 print('3 + 9', 'versus', 3 + 9)
-
+print('HAPPY PRIDE MONTH')
+print('CARDI B IS KWEEN')
+print('SHE IS A GODDESS AMONGST US')
+print('OKURRRRRRR')
+print('4321, 543,23432,432344432')
 # TODO:  After we talk together about the above, add PRINT statements that print:
 # TODO:    1. A Hello message to a friend.
 # TODO:    2. Two big numbers, followed by their sum.

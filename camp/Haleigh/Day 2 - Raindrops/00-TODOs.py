@@ -3,6 +3,8 @@ import sys
 import time  # Note this!
 import random  # Note this!
 
+kpos = 200
+
 
 class Raindrop:
     def __init__(self, screen, x, y):
@@ -37,19 +39,31 @@ class Hero:
         # TODO    - Set the "last hit time" to 0.
         # TODO  Use instance variables:
         # TODO     screen  x  y  image_umbrella   image_no_umbrella  last_hit_time.
+        self.screen = screen
+        self.x = x
+        self.y = y
+        self.with_umbrella = with_umbrella
+        self.without_umbrella = without_umbrella
+        self.last_hit_time = 0
+        self.image_umbrella = pygame.image.load(self.with_umbrella).convert()
         pass
-
 
     def draw(self):
         # TODO. Draw (blit) this Hero, at this Hero's position, as follows:
         # TODO    If the current time is greater than this Hero's last_hit_time + 1,
         # TODO      draw this Hero WITHOUT an umbrella,
         # TODO      otherwise draw this Hero WITH an umbrella.
-        pass
+        self.screen.blit(self.image_umbrella,(self.x,self.y))
+
+    def move(self,dx,dy):
+        self.x=self.x+dx
+        self.y=self.y+dy
+
 
     def hit_by(self, raindrop):
         # TODO: Return True if this Hero is currently colliding with the given Raindrop.
         pass
+
 
 class Cloud:
     def __init__(self, screen, x, y, image):
@@ -75,20 +89,35 @@ class Cloud:
 
 
 def main():
-    # TODO: Initialize the game, display a captian, and set   screen   to a 1000x600 Screen.
-
+    pygame.init()
+    screen = pygame.display.set_mode((1000, 600))
+    pygame.display.set_caption("raindrops")
     # TODO: Make a Clock, Hero and Cloud with appropriate images, starting at appropriate positions.
+    clock = pygame.time.Clock()
+    hero = Hero(screen, 0, 500, "Mike_umbrella.png", "Mike.png")
 
     # TODO: Enter the game loop, with a clock tick of 60 (or so) at each iteration.
     # TODO    Make the pygame.QUIT event stop the game.
 
-    # TODO: Inside the game loop, get the list of keys that are currently pressed.
-    # TODO    Arrange so that the Cloud moves:
-    # TODO      1 pixel to the right if the Right Arrow key (pygame.K_RIGHT) is pressed.
-    # TODO      1 pixel to the left if the Left Arrow key (pygame.K_LEFT) is pressed.
-    # TODO      1 pixel up if the Up Arrow key (pygame.K_UP) is pressed.
-    # TODO      1 pixel down if the Down Arrow key (pygame.K_DOWN) is pressed.
-
+    while True:
+        clock.tick(60)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+        hero.draw()
+        pygame.display.update()
+        screen.fill((202,185,241))
+        pressed_keys=pygame.key.get_pressed()
+        if pressed_keys[pygame.K_RIGHT]:
+            hero.move(2,0)
+        if pressed_keys[pygame.K_LEFT]:
+            hero.move(-2,0)
+        if pressed_keys[pygame.K_UP]:
+            hero.move(0,-2)
+        if pressed_keys[pygame.K_DOWN]:
+            hero.move(0,2)
+        if pressed_keys[pygame.K_SPACE]:
+            hero.move(0,-5)
     # TODO: Inside the game loop, draw the screen, Hero and Cloud.
 
     # TODO: Inside the game loop, make the Cloud "rain", and then:
@@ -101,3 +130,4 @@ def main():
 
 
 # TODO: Call main.
+main()
