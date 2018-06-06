@@ -75,12 +75,21 @@ class Cloud:
 
 
 def main():
-    # TODO: Initialize the game, display a captian, and set   screen   to a 1000x600 Screen.
+    # DONE: Initialize the game, display a caption, and set   screen   to a 1000x600 Screen.
+    print("Ready")
+    pygame.init()
+    pygame.display.set_caption("Raindrops")
+    screen = pygame.display.set_mode((1000, 600))
+
 
     # TODO: Make a Clock, Hero and Cloud with appropriate images, starting at appropriate positions.
 
     # TODO: Enter the game loop, with a clock tick of 60 (or so) at each iteration.
-    # TODO    Make the pygame.QUIT event stop the game.
+    # DONE    Make the pygame.QUIT event stop the game.
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
 
     # TODO: Inside the game loop, get the list of keys that are currently pressed.
     # TODO    Arrange so that the Cloud moves:
@@ -97,7 +106,8 @@ def main():
     # TODO      - draw the Raindrop.
     # TODO      - if the Hero is hit by a Raindrop, set the Hero's last_time_hit to the current time.
     # TODO      - if the Raindrop is off the screen, delete it from the Cloud's list of Raindrops.
-    pass
 
 
-# TODO: Call main.
+
+# DONE: Call main.
+main()
