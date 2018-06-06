@@ -5,14 +5,19 @@ import random  # Note this!
 
 
 class Raindrop:
-    def __init__(self, screen, x, y):
+    def __init__(self, screen, x, y, water_droplet ):
         # TODO. Inititalize this Raindrop, as follows:
         # TODO    - Store the screen.
         # TODO    - Set the initial position of the Raindrop to x and y.
         # TODO    - Set the initial speed to a random integer between 5 and 18.
         # TODO  Use instance variables:   screen  x  y  speed.
-        pass
-
+        self.screen = screen
+        self.x = x
+        self.y = y
+        self.water_droplet = water_droplet
+        self.last_hit_time = 0
+        self.image_water_droplet = pygame.image.load(self.water_droplet).convert()
+        self.image_water_droplet = pygame.transform.scale(self.image_water_droplet, (70, 70))
     def move(self):
         # TODO. Change the  y  position of this Raindrop by its speed.
         pass
@@ -24,7 +29,7 @@ class Raindrop:
     def draw(self):
         # TODO. Draw a vertical line that is 5 pixels long, 2 pixels thick,
         # TODO    from the current position of this Raindrop.
-        pass
+        self.screen.blit(self.image_water_droplet, (self.x, self.y))
 
 
 class Draco:
@@ -72,18 +77,36 @@ class Cloud:
         # TODO    - Set the list of Raindrop objects for this Cloud to the empty list.
         # TODO  Use instance variables:
         # TODO     screen  x  y  image   raindrops.
-        pass
+        self.screen = screen
+        self.x = x
+        self.y = y
+        self.image = image
+        self.image_cloud = pygame.image.load(image).convert()
+        self.direction = 1
+
+
+
+
 
     def draw(self):
         # TODO. Draw (blit) this Cloud's image at its current position.
-        pass
+        self.screen.blit(self.image_cloud, (self.x, self.y))
+
+    def move(self, dx, dy):
+        self.x = self.x + (dx * self.direction)
+        self.y = self.y + dy
+        if self.x > 1000 -300:
+            self.direction = -1
+        elif self.x < 0:
+            self.direction = 1
 
     def rain(self):
         # TODO. Append a new Raindrop to this Cloud's list of Raindrops,
         # TODO    where the new Raindrop starts at:
         # TODO      - x is a random integer between this Cloud's x and this Cloud's x + 300.
         # TODO      - y is this Cloud's y + 100.
-        pass
+        random_x = random.randint(0, 300)
+        raindrop = Raindrop(self.screen, random_x, self.y + 100, "raindrop.png")
 
 
 def main():
@@ -94,7 +117,9 @@ def main():
 
     # TODO: Make a Clock, Hero and Cloud with appropriate images, starting at appropriate positions.
     clock = pygame.time.Clock()
-    draco = Draco(screen, 0, 500, "Mike_umbrella.png", "Mike_png")
+    draco = Draco(screen, 0, 400, "Mike_umbrella.png", "Mike_png")
+    cloud = Cloud(screen, 15, 25, "cloud.png")
+    raindrop = Raindrop(screen, 0, 150, "water_droplet.png")
     # TODO: Enter the game loop, with a clock tick of 60 (or so) at each iteration.
     # TODO    Make the pygame.QUIT event stop the game.
     while True:
@@ -102,20 +127,28 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+
+
         pressed_keys = pygame.key.get_pressed()
         if pressed_keys[pygame.K_RIGHT]:
-            draco.move(2, 0)
+            draco.move(3, 0)
         if pressed_keys[pygame.K_LEFT]:
-            draco.move(-2, 0)
-        if pressed_keys[pygame.K_UP]:
-            draco.move(0, -2)
-        if pressed_keys[pygame.K_DOWN]:
-            draco.move(0, 2)
-        if pressed_keys[pygame.K_SPACE]:
-            draco.move(0, -10)
-            
+            draco.move(-3, 0)
+        if pressed_keys[pygame.K_1]:
+            draco.move(10, 0)
+        if pressed_keys[pygame.K_2]:
+            draco.move(-10, 0)
+
+
+        cloud.move(1, 0)
+
+
+
+
         screen.fill((255, 255, 255))
         draco.draw()
+        cloud.draw()
+        raindrop.draw()
         pygame.display.update()
 
     # TODO: Inside the game loop, get the list of keys that are currently pressed.
