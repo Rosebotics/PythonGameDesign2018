@@ -18,7 +18,7 @@ while True:
     pressed_keys = pygame.key.get_pressed()
     if pressed_keys[pygame.K_RIGHT]:
         nose_y_position = 0
-        
+
 
     screen.fill((234, 162, 123))
 
