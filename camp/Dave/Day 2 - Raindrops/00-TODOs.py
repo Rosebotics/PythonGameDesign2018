@@ -56,10 +56,9 @@ class Hero:
         else:
             self.screen.blit(self.image_with_umbrella, (self.x, self.y))
 
-
     def hit_by(self, raindrop):
-        # TODO: Return True if this Hero is currently colliding with the given Raindrop.
-        pass
+        # DONE: Return True if this Hero is currently colliding with the given Raindrop.
+        return pygame.Rect(self.x, self.y, 170, 192).collidepoint((raindrop.x, raindrop.y))
 
 
 class Cloud:
@@ -144,20 +143,23 @@ def main():
 
         # DONE: Inside the game loop, draw the screen, Hero and Cloud.
         cloud.draw()
-        mike.draw()
         # single_raindrop.move()
         # single_raindrop.draw()
         cloud.rain()
         for raindrop in cloud.raindrops:
             raindrop.move()
             raindrop.draw()
+            if mike.hit_by(raindrop):
+                mike.last_hit_time = time.time()
 
-        # TODO: Inside the game loop, make the Cloud "rain", and then:
-        # TODO    For each Raindrop in the Cloud's list of raindrops:
-        # TODO      - move the Raindrop.
-        # TODO      - draw the Raindrop.
-        # TODO      - if the Hero is hit by a Raindrop, set the Hero's last_time_hit to the current time.
-        # TODO      - if the Raindrop is off the screen, delete it from the Cloud's list of Raindrops.
+        mike.draw()
+
+        # DONE: Inside the game loop, make the Cloud "rain", and then:
+        # DONE    For each Raindrop in the Cloud's list of raindrops:
+        # DONE      - move the Raindrop.
+        # DONE      - draw the Raindrop.
+        # DONE      - if the Hero is hit by a Raindrop, set the Hero's last_time_hit to the current time.
+        # DONE      - if the Raindrop is off the screen, delete it from the Cloud's list of Raindrops.
 
         pygame.display.update()
 

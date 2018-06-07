@@ -108,8 +108,8 @@ def main():
 
 
     # done: Make a Hero and Cloud with appropriate images, starting at appropriate positions.
-    cloud = Cloud(screen, 300, 50, "cloud.png")
 
+    cloud = Cloud(screen, 300, 50, "cloud.png")
 
     # done: Make a Hero and Cloud with appropriate images, starting at appropriate positions.
     mike = Hero(screen, 300, 400, "Mike_umbrella.png", "Mike.png")
