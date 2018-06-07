@@ -63,7 +63,7 @@ class Hero:
 
     def hit_by(self, raindrop):
         # TODO: Return True if this Hero is currently colliding with the given Raindrop.
-        pass
+        return pygame.Rect(self.x, self.y, 170, 192).collidepoint((raindrop.x, raindrop.y))
 
 class Cloud:
     def __init__(self, screen, x, y, image):
@@ -177,6 +177,8 @@ def main():
         for raindrop in cloud.raindrops:
             raindrop.move()
             raindrop.draw()
+            if mike.hit_by(raindrop):
+                mike.last_hit_time = time.time()
 
         # TODO: Inside the game loop, make the Cloud "rain", and then:
         # TODO    For each Raindrop in the Cloud's list of raindrops:
