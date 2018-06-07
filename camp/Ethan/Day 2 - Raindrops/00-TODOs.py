@@ -43,6 +43,7 @@ class Hero:
         # TODO    - Set the image of this Hero WITH an umbrella to the given with_umbrella file.
         # TODO    - Set the image of this Hero WITHOUT an umbrella to the given without_umbrella file.
         # TODO    - Set the "last hit time" to 0.
+        self.last_hit_time = 0
         # TODO  Use instance variables:
         # TODO     screen  x  y  image_umbrella   image_no_umbrella  last_hit_time.
 
@@ -53,7 +54,11 @@ class Hero:
         # TODO    If the current time is greater than this Hero's last_hit_time + 1,
         # TODO      draw this Hero WITHOUT an umbrella,
         # TODO      otherwise draw this Hero WITH an umbrella.
-        self.screen.blit(self.image_with_umbrella, (self.x, self.y))
+        if time.time() > self.last_hit_time + 1:
+            self.screen.blit(self.image_without_umbrella, (self.x, self.y))
+        else:
+            self.screen.blit(self.image_with_umbrella, (self.x, self.y))
+
 
     def hit_by(self, raindrop):
         # TODO: Return True if this Hero is currently colliding with the given Raindrop.
