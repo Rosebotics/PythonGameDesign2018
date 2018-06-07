@@ -17,8 +17,7 @@ class Raindrop:
         self.y = self.y + self.speed
 
     def off_screen(self):
-        # TODO. Return  True  if the  y  position of this Raindrop is greater than 800.
-        pass
+
 
     def draw(self):
         pygame.draw.line(self.screen, (0, 0, 150), (self.x, self.y), (self.x, self.y + 5), 2)
@@ -37,8 +36,6 @@ class Hero:
 
 
     def draw(self):
-        # TODO. Draw (blit) this Hero, at this Hero's position, as follows:
-        # TODO    If the current time is greater than this Hero's last_hit_time + 1,
 
         if time.time() > self.last_hit_time + 1:
             self.screen.blit(self.image_without_umbrella, (self.x, self.y))
@@ -47,8 +44,7 @@ class Hero:
 
 
     def hit_by(self, raindrop):
-        # TODO: Return True if this Hero is currently colliding with the given Raindrop.
-        pass
+        return pygame.Rect(self.x, self.y, 170, 192).collidepoint((raindrop.x, raindrop.y))
 
 class Cloud:
     def __init__(self, screen, x, y, image):
@@ -78,9 +74,6 @@ def main():
 
     hero = Hero(screen, 300, 400, 'Mike_umbrella.png', 'Mike.png')
 
-    # TODO: delete this later
-    #single_raindrop = Raindrop(screen, 500, 20)
-
     while True:
         clock.tick(60)
         for event in pygame.event.get():
@@ -108,23 +101,19 @@ def main():
         if pressed_key[pygame.K_a]:
             hero.x = hero.x - 5
 
-      #   if pressed_key[pygame.K_w]:
-      #     hero.y = hero.y - 5
+        if pressed_key[pygame.K_w]:
+            hero.y = hero.y - 5
 
-      #  if pressed_key[pygame.K_s]:
-      #      hero.y = hero.y + 5
+        if pressed_key[pygame.K_s]:
+            hero.y = hero.y + 5
 
         cloud.draw()
         hero.draw()
         for raindrop in cloud.raindrops:
             raindrop.move()
             raindrop.draw()
-
-        # TODO: Inside the game loop, make the Cloud "rain", and then:
-        # TODO    For each Raindrop in the Cloud's list of raindrops:
-        # TODO      - move the Raindrop.
-        # TODO      - draw the Raindrop.
-        # TODO      - if the Hero is hit by a Raindrop, set the Hero's last_time_hit to the current time.
+            if hero.hit_by(raindrop):
+                hero.last_hit_time = time.time()
 
         pygame.display.update()
 
