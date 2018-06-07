@@ -70,7 +70,8 @@ class Hero:
 
     def hit_by(self, raindrop):
         # TODO: Return True if this Hero is currently colliding with the given Raindrop.
-        pass
+        return pygame.Rect(self.x, self.y, 170, 192).collidepoint((raindrop.x, raindrop.y))
+
 
 class Cloud:
     def __init__(self, screen, x, y, image):
@@ -112,7 +113,7 @@ def main():
 
 
 
-    screen = pygame.display.set_mode( (1000, 600) )
+    screen = pygame.display.set_mode( (1000, 650) )
 
     #DONE: Make a Clock
     clock = pygame.time.Clock()
@@ -147,23 +148,23 @@ def main():
        #Move the cloud
         pressed_keys = pygame.key.get_pressed()
         if pressed_keys[pygame.K_RIGHT]:
-            cloud.x = cloud.x + 2
+            cloud.x = cloud.x + 10
         if pressed_keys[pygame.K_LEFT]:
-            cloud.x = cloud.x - 2
+            cloud.x = cloud.x - 10
         if pressed_keys[pygame.K_DOWN]:
-          cloud.y = cloud.y + 2
+          cloud.y = cloud.y + 10
         if pressed_keys[pygame.K_UP]:
-            cloud.y =   cloud.y - 2
+            cloud.y =   cloud.y - 10
 
     #Move Hero
         if pressed_keys[pygame.K_d]:
-            Luigi.x = Luigi.x + 2
+            Luigi.x = Luigi.x + 10
         if pressed_keys[pygame.K_a]:
-            Luigi.x = Luigi.x - 2
+            Luigi.x = Luigi.x - 10
         if pressed_keys[pygame.K_s]:
-            Luigi.y = Luigi.y + 2
+            Luigi.y = Luigi.y + 10
         if pressed_keys[pygame.K_w]:
-            Luigi.y = Luigi.y - 2
+            Luigi.y = Luigi.y - 10
         # TODO: Inside the game loop, draw the screen, Hero and Cloud.
         screen.fill((255, 255, 255))
         cloud.draw()
@@ -173,6 +174,8 @@ def main():
         for raindrop in cloud.raindrops:
             raindrop.move()
             raindrop.draw()
+            if Luigi.hit_by(raindrop):
+                Luigi.last_hit_time = time.time()
 
 
 
