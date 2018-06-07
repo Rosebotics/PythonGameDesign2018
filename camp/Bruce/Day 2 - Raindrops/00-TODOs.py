@@ -6,25 +6,21 @@ import random  # Note this!
 
 class Raindrop:
     def __init__(self, screen, x, y):
-        # TODO. Inititalize this Raindrop, as follows:
-        # TODO    - Store the screen.
-        # TODO    - Set the initial position of the Raindrop to x and y.
-        # TODO    - Set the initial speed to a random integer between 5 and 18.
-        # TODO  Use instance variables:   screen  x  y  speed.
-        pass
+        self.screen = screen
+        self.x = x
+        self.y = y
+        self.speed = random.randint(5, 18)
 
     def move(self):
-        # TODO. Change the  y  position of this Raindrop by its speed.
-        pass
+        self.y = self.y + self.speed
 
     def off_screen(self):
         # TODO. Return  True  if the  y  position of this Raindrop is greater than 800.
         pass
 
     def draw(self):
-        # TODO. Draw a vertical line that is 5 pixels long, 2 pixels thick,
+        pygame.draw.line(self.screen, (0, 0, 255), (self.x, self.y), (self.x, self.y + 5), 2)
         # TODO    from the current position of this Raindrop.
-        pass
 
 
 class Hero:
@@ -38,8 +34,10 @@ class Hero:
 
 
     def draw(self):
-        self.screen.blit(self.image_without_umbrella, (self.x, self.y))
-        self.screen.blit(self.image_with_umbrella, (self.x, self.y))
+        if time.time() > self.last_hit_time + 1:
+            self.screen.blit(self.image_without_umbrella, (self.x, self.y))
+        else:
+            self.screen.blit(self.image_with_umbrella, (self.x, self.y))
         # TODO    If the current time is greater than this Hero's last_hit_time + 1,
         # TODO      draw this Hero WITHOUT an umbrella,
         # TODO      otherwise draw this Hero WITH an umbrella.
@@ -47,7 +45,7 @@ class Hero:
 
     def hit_by(self, raindrop):
         # TODO: Return True if this Hero is currently colliding with the given Raindrop.
-        pass
+        return pygame.Rect(self.x, self.y, 170, 192).collidepoint((raindrop.x, raindrop.y))
 
 class Cloud:
     def __init__(self, screen, x, y, image):
@@ -61,11 +59,11 @@ class Cloud:
         self.screen.blit(self.image, (self.x, self.y))
 
     def rain(self):
-        # TODO. Append a new Raindrop to this Cloud's list of Raindrops,
+        new_raindrop = Raindrop(self.screen, random.randint(self.x, self.x + 300), self.y + 100)
+        self.raindrops.append(new_raindrop)
         # TODO    where the new Raindrop starts at:
         # TODO      - x is a random integer between this Cloud's x and this Cloud's x + 300.
         # TODO      - y is this Cloud's y + 100.
-        pass
 
 
 def main():
@@ -75,15 +73,20 @@ def main():
     screen = pygame.display.set_mode((1000,600))
     clock = pygame.time.Clock()
     cloud = Cloud(screen, 300, 50 ,"cloud.png")
-
+    cloud.rain()
+    cloud.rain()
+    cloud.rain()
+    cloud.rain()
+    like = Hero(screen, 300, 400, 'Mike_umbrella.png', 'Mike.png')
+    single_raindrop = Raindrop(screen, 500, 50)
     while True:
         clock.tick(60)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
-
+        cloud.rain()
         screen.fill((255, 255, 255))
-        like = Hero (screen, 300, 400, 'Mike_umbrella.png', 'Mike.png')
+
 
         # TODO: Inside the game loop, get the list of keys that are currently pressed.
         # TODO    Arrange so that the Cloud moves:
@@ -100,9 +103,28 @@ def main():
              cloud.y = cloud.y - 2
         if pressed_keys[pygame.K_DOWN]:
             cloud.y = cloud.y + 2
+
+        if pressed_keys[pygame.K_d]:
+            like.x = like.x + 2
+        if pressed_keys[pygame.K_a]:
+            like.x = like.x - 2
+        if pressed_keys[pygame.K_w]:
+            like.y = like.y - 2
+        if pressed_keys[pygame.K_s]:
+            like.y = like.y + 2
         like.draw()
         cloud.draw()
+        #single_raindrop.move()
+       #single_raindrop.draw()
+        for raindrop in cloud.raindrops:
 
+            raindrop.draw()
+            raindrop.move()
+            if like.hit_by(raindrop):
+                like.last_hit_time = time.time()
+
+
+        like.draw()
 
         # TODO: Inside the game loop, make the Cloud "rain", and then:
 
