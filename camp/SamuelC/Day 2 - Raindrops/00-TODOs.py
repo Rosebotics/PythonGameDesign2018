@@ -50,8 +50,8 @@ class Hero:
         # TODO    If the current time is greater than this Hero's last_hit_time + 1,
         # TODO      draw this Hero WITHOUT an umbrella,
         # TODO      otherwise draw this Hero WITH an umbrella.
-         self.screen.blit(self.image_without_umbrella, (self.x, self.y))
- 
+         self.screen.blit(self.image_with_umbrella, (self.x, self.y))
+
     def hit_by(self, raindrop):
         # TODO: Return True if this Hero is currently colliding with the given Raindrop.
         pass
