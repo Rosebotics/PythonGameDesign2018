@@ -5,17 +5,22 @@ import random  # Note this!
 
 
 class Raindrop:
-    def __init__(self, screen, x, y):
+    def __init__(self, screen, x, y, image):
         # TODO. Inititalize this Raindrop, as follows:
+
         # TODO    - Store the screen.
         # TODO    - Set the initial position of the Raindrop to x and y.
         # TODO    - Set the initial speed to a random integer between 5 and 18.
         # TODO  Use instance variables:   screen  x  y  speed.
-        pass
+        self.screen = screen
+        self.x = x
+        self.y = y
+        self.image = image
+        self.sm = pygame.image.load(self.image).convert()
 
     def move(self):
         # TODO. Change the  y  position of this Raindrop by its speed.
-        pass
+        self.screen.blit(self.sm,(self.x, self.y))
 
     def off_screen(self):
         # TODO. Return  True  if the  y  position of this Raindrop is greater than 800.
@@ -24,8 +29,7 @@ class Raindrop:
     def draw(self):
         # TODO. Draw a vertical line that is 5 pixels long, 2 pixels thick,
         # TODO    from the current position of this Raindrop.
-        pass
-
+        self.screen.blit(self.sm, (self.x, self.y))
 
 class Hero:
     def __init__(self, screen, x, y, with_umbrella, without_umbrella):
@@ -72,10 +76,16 @@ class Cloud:
         self.screen = screen
         self.x = x
         self.y = y
+        self.image = image
+        self.image_cloud = pygame.image.load(self.image).convert()
+
+    def move(self ,dx ,dy ):
+        self.x = self.x + dx
+        self.y = self.y + dy
 
     def draw(self):
         # TODO. Draw (blit) this Cloud's image at its current position.
-        pass
+        self.screen.blit(self.image_cloud, (self.x, self.y))
 
     def rain(self):
         # TODO. Append a new Raindrop to this Cloud's list of Raindrops,
@@ -90,9 +100,12 @@ def main():
     pygame.init()
     pygame.display.set_caption (("My raindrops are falling on my head..."))
     screen = pygame.display.set_mode((1000, 600))
+
     # TODO: Make a Clock, Hero and Cloud with appropriate images, starting at appropriate positions.
     clock = pygame.time.Clock()
     hero = Hero(screen, 0, 500, "Mike_umbrella.png","Mike.png")
+    cloud = Cloud(screen, 0, 0, "cloud.png")
+    sm = Raindrop(screen, 500, 500, "kirby_steven_weird_face_by_mortdres-dae9l99.png")
     # TODO: Enter the game loop, with a clock tick of 60 (or so) at each iteration.
     # TODO    Make the pygame.QUIT event stop the game.
     while True:
@@ -101,17 +114,20 @@ def main():
             if event.type == pygame.QUIT:
                 sys.exit()
         hero.draw()
+        cloud.draw()
+        sm.draw()
         pressed_keys = pygame.key.get_pressed()
 
         if pressed_keys[pygame.K_RIGHT]:
-            hero.move(19, 0)
+            hero.move(27, 0)
         if pressed_keys[pygame.K_LEFT]:
-            hero.move(-19, 0)
+            hero.move(-100, 0)
         if pressed_keys[pygame.K_UP]:
-            hero.move(0, -10)
-
+            hero.move(0, -100)
         if pressed_keys[pygame.K_DOWN]:
-            hero.move(0, 10)
+            hero.move(0, 100)
+
+        cloud.move(4,0)
         pygame.display.update()
     # TODO: Inside the game loop, get the list of keys that are currently pressed.
     # TODO    Arrange so that the Cloud moves:
