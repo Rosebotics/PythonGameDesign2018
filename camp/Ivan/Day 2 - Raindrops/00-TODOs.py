@@ -68,8 +68,8 @@ class Hero:
             self.screen.blit(self.image_with_umbrella, (self.x, self.y))
 
     def hit_by(self, raindrop):
-        # TODO: Return True if this Hero is currently colliding with the given Raindrop.
-        pass
+        # DONE: Return True if this Hero is currently colliding with the given Raindrop.
+        return pygame.Rect(self.x, self.y, 170, 192).collidepoint((raindrop.x, raindrop.y))
 
 class Cloud:
     def __init__(self, screen, x, y, image):
@@ -162,12 +162,17 @@ def main():
 
         # TODO: Inside the game loop, draw the screen, Hero and Cloud.
         cloud.draw()
-        Omega.draw()
+
         # single_raindrop.draw()
         # single_raindrop.move()
         for raindrop in cloud.raindrops:
             raindrop.move()
             raindrop.draw()
+            if Omega.hit_by(raindrop):
+                Omega.last_hit_time = time.time()
+
+        Omega.draw()
+        
         # TODO: Inside the game loop, make the Cloud "rain", and then:
         # TODO    For each Raindrop in the Cloud's list of raindrops:
         # TODO      - move the Raindrop.
