@@ -127,7 +127,7 @@ def main():
     # TODO: Enter the game loop, with a clock tick of 60 (or so) at each iteration.
     # Done    Make the pygame.QUIT event stop the game.
     while True:
-        clock.tick(60)
+        clock.tick(61)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
