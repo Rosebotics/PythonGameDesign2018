@@ -54,7 +54,7 @@ class Hero:
         # done     otherwise draw this Hero WITH an umbrella.
 
         if time.time() > self. last_hit_time + 1:
-         self.screen.blit(self.image_without_umbrella, (self.x, self.y))
+         self.screen.blit(self.image_without_umbrella, (self.x, self.y)) 
         else:
          self.screen.blit(self.image_with_umbrella, (self.x, self.y))
 
