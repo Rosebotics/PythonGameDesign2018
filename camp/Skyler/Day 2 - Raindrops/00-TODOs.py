@@ -53,7 +53,7 @@ class Hero:
         self.last_hit_time = 0
 
     def hit_by(self, raindrop):
-        self
+        return pygame.Rect(self.x, self.y, 170, 192).collidepoint((raindrop.x, raindrop.y))
 
     def draw(self):
         # TODO. Draw (blit) this Hero, at this
@@ -130,23 +130,23 @@ def main():
         # TODO      1 pixel down if the Down Arrow key (pygame.K_DOWN) is pressed.
         pressed_keys = pygame.key.get_pressed()
         if pressed_keys[pygame.K_RIGHT]:
-            cloud.x = cloud.x + 250
+            cloud.x = cloud.x + 10
         if pressed_keys[pygame.K_LEFT]:
-            cloud.x = cloud.x - 250
+            cloud.x = cloud.x - 10
         if pressed_keys[pygame.K_UP]:
-            cloud.y = cloud.y - 250
+            cloud.y = cloud.y - 10
         if pressed_keys[pygame.K_DOWN]:
-            cloud.y = cloud.y + 250
+            cloud.y = cloud.y + 10
 
 
         if pressed_keys[pygame.K_d]:
-            mike.x = mike.x + 250
+            mike.x = mike.x + 10
         if pressed_keys[pygame.K_a]:
-            mike.x = mike.x - 250
+            mike.x = mike.x - 10
         if pressed_keys[pygame.K_w]:
-            mike.y = mike.y - 250
+            mike.y = mike.y - 10
         if pressed_keys[pygame.K_s]:
-            mike.y = mike.y + 250
+            mike.y = mike.y + 10
 
 
         # TODO: Inside the game loop, draw the screen, Hero and Cloud.
@@ -158,6 +158,11 @@ def main():
         for raindrop in cloud.raindrops:
             raindrop.move()
             raindrop.draw()
+            if mike.hit_by(raindrop):
+                mike.last_hit_time = time.time()
+
+
+        mike.draw()
         # TODO: Inside the game loop, make the Cloud "rain", and then:
         # TODO    For each Raindrop in the Cloud's list of raindrops:
         # TODO      - move the Raindrop.
