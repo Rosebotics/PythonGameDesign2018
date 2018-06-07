@@ -42,7 +42,7 @@ class Hero:
         # TODO      draw this Hero WITHOUT an umbrella,
         # TODO      otherwise draw this Hero WITH an umbrella.
         pass
- 
+
     def hit_by(self, raindrop):
         # TODO: Return True if this Hero is currently colliding with the given Raindrop.
         return pygame.Rect(self.x, self.y, 170, 192).collidepoint((raindrop.x, raindrop.y))
