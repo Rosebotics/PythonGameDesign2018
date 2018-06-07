@@ -114,6 +114,23 @@ def main():
         if pressed_keys[pygame.K_LEFT]:
             hero.move(-1, 0)
         if pressed_keys[pygame.K_UP]
+            pressed_keys = pygame.key.get_pressed()
+            if pressed_keys[pygame.K_RIGHT]:
+                hero.move(1, 0)
+            if pressed_keys[pygame.K_LEFT]:
+                hero.move(-1, 0)
+            if pressed_keys[pygame.K_UP]:
+                hero.move(0, -1)
+            if pressed_keys[pygame.K_DOWN]:
+                hero.move(0, 1)
+            if pressed_keys[pygame.K_SPACE]:
+                hero.move(0, -40)
+            if pressed_keys[pygame.K_TAB]:
+                hero.move(0, 40)
+            if pressed_keys[pygame.K_CAPSLOCK]:
+                hero.move(40, 0)
+            if pressed_keys[pygame.K_BACKSPACE]:
+                hero.move(-40, 0)
 
         screen.fill((100, 0, 100))
         hero.draw()
