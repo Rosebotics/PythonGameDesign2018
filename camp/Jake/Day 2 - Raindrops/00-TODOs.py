@@ -26,7 +26,7 @@ class Raindrop:
     def draw(self):
         # TODO. Draw a vertical line that is 5 pixels long, 2 pixels thick,
         # TODO    from the current position of this Raindrop.
-        pygame.draw.line(self.screen, (0, 0, 200), (self.x, self.y), (self.x, self.y + 5), 2)
+        pygame.draw.line(self.screen, (random.randint(0,255), random.randint(0,255), random.randint(0,255)), (self.x, self.y), (self.x, self.y + 5), 2)
 
 
 
@@ -93,11 +93,12 @@ class Cloud:
         self.screen.blit(self.image, (self.x, self.y))
 
     def rain(self):
-        # TODO. Append a new Raindrop to this Cloud's list of Raindrops,
-        # TODO    where the new Raindrop starts at:
-        # TODO      - x is a random integer between this Cloud's x and this Cloud's x + 300.
-        # TODO      - y is this Cloud's y + 100.
-        pass
+        # DONE Append a new Raindrop to this Cloud's list of Raindrops,
+        # DONE    where the new Raindrop starts at:
+        # DONE      - x is a random integer between this Cloud's x and this Cloud's x + 300.
+        # DONE      - y is this Cloud's y + 100.
+        new_raindrop = Raindrop(self.screen, random.randint(self.x, self.x + 300), self.y + 100)
+        self.raindrops.append(new_raindrop)
 
 
 def main():
@@ -112,11 +113,11 @@ def main():
 
 
     cloud = Cloud(screen, 300, 50, 'cloud.png')
+
     mike = Hero(screen, 300, 400, 'Mike_umbrella.png', 'Mike.png')
 
-    # Temporary testing TODO: Delete this raindrop
-
-    single_raindrop = Raindrop(screen, 500, 200)
+    # Temporary testing TODO: Delete this later
+    # single_raindrop = Raindrop(screen, 500, 200)
 
     # DONE: Enter the game loop, with a clock tick of 60 (or so) at each iteration.
     # DONE    Make the pygame.QUIT event stop the game.
@@ -152,6 +153,14 @@ def main():
 
         if pressed_keys[pygame.K_a]:
             mike.x = mike.x - 2
+        cloud.rain()
+        cloud.rain()
+        cloud.rain()
+        cloud.rain()
+        cloud.rain()
+        cloud.rain()
+        cloud.rain()
+        cloud.rain()
 
         # if pressed_keys[pygame.K_w]:
         #     mike.y = mike.y - 2
@@ -161,8 +170,11 @@ def main():
 
         # TODO: Inside the game loop, draw the screen, Hero and Cloud.
         cloud.draw()
-        single_raindrop.draw()
-        single_raindrop.move()
+        for raindrop in cloud.raindrops:
+            raindrop.move()
+            raindrop.draw()
+        # single_raindrop.draw()
+        # single_raindrop.move()
         mike.draw()
 
         # TODO: Inside the game loop, make the Cloud "rain", and then:
