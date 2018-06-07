@@ -96,7 +96,12 @@ class Cloud:
         # TODO    where the new Raindrop starts at:
         # TODO      - x is a random integer between this Cloud's x and this Cloud's x + 300.
         # TODO      - y is this Cloud's y + 100.
-        pass
+        new_raindrop = Raindrop(self.screen, random.randint(self.x, self.x + 300), self.y + 100)
+        self.raindrops.append(new_raindrop)
+
+
+
+
 
 
 def main():
@@ -114,6 +119,10 @@ def main():
     # TODO: Make a Cloud with appropriate images, starting at appropriate positions.
     cloud = Cloud(screen, 300, 50, "cloud.png")
 
+
+
+
+
     #TODO Make a Hero
     Luigi = Hero(screen, 300, 400, "Mike_umbrella.png", "Mike.png" )
     single_raindrop = Raindrop(screen, 500, 50)
@@ -121,6 +130,8 @@ def main():
     # DONE: Enter the game loop, with a clock tick of 60 (or so) at each iteration.
     # DONE    Make the pygame.QUIT event stop the game.
     while True:
+        cloud.draw()
+        cloud.rain()
         clock.tick(60)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -157,9 +168,13 @@ def main():
         screen.fill((255, 255, 255))
         cloud.draw()
         Luigi.draw()
-        single_raindrop.move()
-        single_raindrop.draw()
- 
+        # single_raindrop.move()
+        # single_raindrop.draw()
+        for raindrop in cloud.raindrops:
+            raindrop.move()
+            raindrop.draw()
+
+
 
         # TODO: Inside the game loop, make the Cloud "rain", and then:
         # TODO    For each Raindrop in the Cloud's list of raindrops:
