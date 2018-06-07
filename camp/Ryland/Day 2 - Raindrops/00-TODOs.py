@@ -68,9 +68,8 @@ class Cloud:
         # TODO    where the new Raindrop starts at:
         # TODO      - x is a random integer between this Cloud's x and this Cloud's x + 300.
         # TODO      - y is this Cloud's y + 100.
-
-        pass
-
+        new_raindrop = Raindrop(self.screen, random.randint(self.x, self.x + 300), self.y + 100)
+        self.raindrops.append(new_raindrop)
 
 def main():
     print('hello world itz ya boi RYLAND ')
@@ -78,10 +77,11 @@ def main():
     pygame.display.set_caption("Make it RAIN!!!!!")
     screen = pygame.display.set_mode((1000, 600))
 
-    single_raindrop  = Raindrop(screen, 500, 20)
+    #single_raindrop  = Raindrop(screen, 500, 20)
 
     Link = Hero(screen, 300, 400, "Mike.png", "Mike_umbrella.png")
     cloud = Cloud(screen, 300, 50, "cloud.png")
+
 
 
     clock = pygame.time.Clock()
@@ -92,9 +92,10 @@ def main():
                 sys.exit()
 
         screen.fill((255, 255, 255))
+        cloud.rain()
         pressed_keys = pygame.key.get_pressed()
         if pressed_keys [pygame.K_RIGHT]:
-            cloud.x = cloud.x +4
+            cloud.x = cloud.x + 4
         if pressed_keys[pygame.K_LEFT]:
             cloud.x = cloud.x - 4
         if pressed_keys[pygame.K_UP]:
@@ -104,13 +105,13 @@ def main():
 
         pressed_keys = pygame.key.get_pressed()
         if pressed_keys[pygame.K_d]:
-            Link.x = Link.x + 4
+            Link.x = Link.x + 6
         if pressed_keys[pygame.K_a]:
-            Link.x = Link.x - 4
+            Link.x = Link.x - 6
         if pressed_keys[pygame.K_w]:
-            Link.y = Link.y - 4
+            Link.y = Link.y - 6
         if pressed_keys[pygame.K_s]:
-            Link.y = Link.y + 4
+            Link.y = Link.y + 6
 
 
 
@@ -119,11 +120,12 @@ def main():
 
 
 
-        # TODO: Inside the game loop, draw the screen, Hero and
+
         cloud.draw()
         Link.draw()
-        single_raindrop.draw()
-        single_raindrop.move()
+        for raindrop in cloud.raindrops:
+            raindrop.draw()
+            raindrop.move()
 
         # TODO: Inside the game loop, make the Cloud "rain", and then:
         # TODO    For each Raindrop in the Cloud's list of raindrops:
