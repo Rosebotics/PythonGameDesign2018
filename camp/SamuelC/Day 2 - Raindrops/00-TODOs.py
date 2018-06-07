@@ -83,11 +83,12 @@ class Cloud:
          self.screen.blit(self.image, (self.x, self.y))
 
     def rain(self):
-        # TODO. Append a new Raindrop to this Cloud's list of Raindrops,
-        # TODO    where the new Raindrop starts at:
-        # TODO      - x is a random integer between this Cloud's x and this Cloud's x + 300.
-        # TODO      - y is this Cloud's y + 100.
-        pass
+        # done Append a new Raindrop to this Cloud's list of Raindrops,
+        # done   where the new Raindrop starts at:
+        # done     - x is a random integer between this Cloud's x and this Cloud's x + 300.
+        # done    - y is this Cloud's y + 100.
+        new_raindrop = Raindrop(self.screen, random.randint(self.x, self.x + 300), self.y + 100)
+        self.raindrops.append(new_raindrop)
 
 
 def main():
@@ -98,10 +99,11 @@ def main():
     screen = pygame.display.set_mode((1000, 600))
     clock = pygame.time.Clock()
     cloud = Cloud(screen,100,100,"cloud.png")
+
     mike = Hero(screen, 300, 400, "Mike_umbrella.png", "Mike.png")
 
-    #Temporary testing!!!!
-    single_raindrop = Raindrop(screen, 500, 50)
+    # #Temporary testing!!!!
+    # single_raindrop = Raindrop(screen, 500, 20)
     # done: Make a Clock)
     # done: Enter the game loop, with a clock tick of 60 (or so) at each iteration.
     # done:Make the pygame.QUIT event stop the game.
@@ -113,24 +115,24 @@ def main():
          #move the cloud
         pressed_keys = pygame.key.get_pressed()
         if pressed_keys[pygame.K_RIGHT]:
-            cloud.x = cloud.x + 2
+            cloud.x = cloud.x + 4
         pressed_keys = pygame.key.get_pressed()
         if pressed_keys[pygame.K_LEFT]:
-            cloud.x = cloud.x - 2
+            cloud.x = cloud.x - 4
         pressed_keys = pygame.key.get_pressed()
         if pressed_keys[pygame.K_UP]:
-            cloud.y = cloud.y - 2
+            cloud.y = cloud.y - 4
         #
         pressed_keys = pygame.key.get_pressed()
         if pressed_keys[pygame.K_DOWN]:
-            cloud.y = cloud.y + 2
+            cloud.y = cloud.y + 4
          #move mike
         pressed_keys = pygame.key.get_pressed()
         if pressed_keys[pygame.K_d]:
-            mike.x = mike.x + 2
+            mike.x = mike.x + 4
         pressed_keys = pygame.key.get_pressed()
         if pressed_keys[pygame.K_a]:
-            mike.x = mike.x - 2
+            mike.x = mike.x - 4
 
         # done: Inside the game loop, get the list of keys that are currently pressed.
         # done   Arrange so that the Cloud moves:
@@ -144,8 +146,12 @@ def main():
 
         cloud.draw()
         mike.draw()
-        single_raindrop.draw()
-        single_raindrop.move()
+        # single_raindrop.draw()
+        # single_raindrop.move()
+        cloud.rain()
+        for raindrop in cloud.raindrops:
+            raindrop.move()
+            raindrop.draw()
         # TODO: Inside the game loop, make the Cloud "rain", and then:
         # TODO    For each Raindrop in the Cloud's list of raindrops:
         # TODO      - move the Raindrop.
