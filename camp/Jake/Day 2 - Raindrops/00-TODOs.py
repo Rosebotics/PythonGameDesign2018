@@ -70,8 +70,8 @@ class Hero:
 
 
     def hit_by(self, raindrop):
-        # TODO: Return True if this Hero is currently colliding with the given Raindrop.
-        pass
+        # DONE: Return True if this Hero is currently colliding with the given Raindrop.
+        return pygame.Rect(self.x, self.y, 170, 192).collidepoint((raindrop.x, raindrop.y))
 
 class Cloud:
     def __init__(self, screen, x, y, image):
@@ -122,7 +122,7 @@ def main():
     # DONE: Enter the game loop, with a clock tick of 60 (or so) at each iteration.
     # DONE    Make the pygame.QUIT event stop the game.
     while True:
-        clock.tick(60)
+        clock.tick(90)
         for event in pygame.event.get():
             if event.type == pygame .QUIT:
                 sys.exit()
@@ -145,7 +145,7 @@ def main():
             cloud.y = cloud.y - 2
 
         if pressed_keys [pygame.K_DOWN]:
-            cloud.y = cloud.y + 2
+            cloud.y = cloud.y + 2 
 
 
         if pressed_keys[pygame.K_d]:
@@ -156,11 +156,8 @@ def main():
         cloud.rain()
         cloud.rain()
         cloud.rain()
-        cloud.rain()
-        cloud.rain()
-        cloud.rain()
-        cloud.rain()
-        cloud.rain()
+
+
 
         # if pressed_keys[pygame.K_w]:
         #     mike.y = mike.y - 2
@@ -173,9 +170,11 @@ def main():
         for raindrop in cloud.raindrops:
             raindrop.move()
             raindrop.draw()
-        # single_raindrop.draw()
-        # single_raindrop.move()
+            if mike.hit_by(raindrop):
+                mike.last_hit_time = time.time()
+
         mike.draw()
+
 
         # TODO: Inside the game loop, make the Cloud "rain", and then:
         # TODO    For each Raindrop in the Cloud's list of raindrops:
