@@ -35,8 +35,8 @@ class Hero:
         # done    - Store the screen.
         self.screen = screen
         # done   - Set the initial position of this Hero to x and y.
-        # TODO    - Set the image of this Hero WITH an umbrella to the given with_umbrella file.
-        # TODO    - Set the image of this Hero WITHOUT an umbrella to the given without_umbrella file.
+        # done  - Set the image of this Hero WITH an umbrella to the given with_umbrella file.
+        # done    - Set the image of this Hero WITHOUT an umbrella to the given without_umbrella file.
         self.x = x
         self.y = y
         # done    - Set the image of this Cloud to the given image.
@@ -54,15 +54,14 @@ class Hero:
         # done     otherwise draw this Hero WITH an umbrella.
 
         if time.time() > self. last_hit_time + 1:
-         self.screen.blit(self.image_with_umbrella, (self.x, self.y))
-        else:
          self.screen.blit(self.image_without_umbrella, (self.x, self.y))
+        else:
+         self.screen.blit(self.image_with_umbrella, (self.x, self.y))
 
     def hit_by(self, raindrop):
-        #TODO:
+        #done
     #Return True if this Hero is currently colliding with the given Raindrop.
-        pass
-
+        return pygame.Rect(self.x, self.y, 170, 192).collidepoint((raindrop.x, raindrop.y))
 class Cloud:
     def __init__(self, screen, x, y, image):
         # done. Inititalize this Cloud, as follows:
@@ -75,8 +74,8 @@ class Cloud:
         self.image = pygame.image.load(image).convert()
         # done    - Set the list of Raindrop objects for this Cloud to the empty list.
         self.raindrops =[]
-        # TODO  Use instance variables:
-        # TODO     screen  x  y  image   raindrops.
+        # done  Use instance variables:
+        # done    screen  x  y  image   raindrops.
 
     def draw(self):
         # done. Draw (blit) this Cloud's image at its current position.
@@ -141,7 +140,7 @@ def main():
         # done      2 pixel up if the Up Arrow key (pygame.K_UP) is pressed.
         # done     2 pixel down if the Down Arrow key (pygame.K_DOWN) is pressed.
 
-        # TODO: Inside the game loop, draw the screen, Hero and Cloud.
+        # done Inside the game loop, draw the screen, Hero and Cloud.
         screen.fill((255, 255, 255))
 
         cloud.draw()
@@ -152,12 +151,14 @@ def main():
         for raindrop in cloud.raindrops:
             raindrop.move()
             raindrop.draw()
+            if mike.hit_by(raindrop):
+                mike.last_hit_time = time.time()
         # TODO: Inside the game loop, make the Cloud "rain", and then:
         # TODO    For each Raindrop in the Cloud's list of raindrops:
-        # TODO      - move the Raindrop.
+        # TODO    - move the Raindrop.
         # TODO      - draw the Raindrop.
-        # TODO      - if the Hero is hit by a Raindrop, set the Hero's last_time_hit to the current time.
-        # TODO      - if the Raindrop is off the screen, delete it from the Cloud's list of Raindrops.
+        # TODO     - if the Hero is hit by a Raindrop, set the Hero's last_time_hit to the current time.
+        # TODO    - if the Raindrop is off the screen, delete it from the Cloud's list of Raindrops.
 
         pygame.display.update()
 
