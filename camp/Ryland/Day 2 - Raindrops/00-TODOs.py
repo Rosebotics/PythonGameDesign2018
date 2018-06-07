@@ -27,7 +27,7 @@ class Hero:
         self.screen = screen
         self.x = x
         self.y = y
-        self.image_with_umbrella = pygame.image.load(no_umbrella).convert()
+        self.image_with_umbrella = pygame.image.load(with_umbrella).convert()
         self.image_without_umbrella = pygame.image.load(no_umbrella).convert()
         self.screen.blit(self.image_with_umbrella, (self.x, self.y))
 
@@ -42,15 +42,15 @@ class Hero:
         # TODO    If the current time is greater than this Hero's last_hit_time + 1,
         # TODO      draw this Hero WITHOUT an umbrella,
         # TODO      otherwise draw this Hero WITH an umbrella.
-        if time.time() > self.last_hit_time + 1:
-            self.screen.blit(self.image_with_umbrella, (self.x, self.y))
+        if time.time() > self.last_hit_time + 0.25:
+            self.screen.blit(self.image_without_umbrella, (self.x, self.y))
         else:
-            self.screen.blit(self.image_no_umbrella, (self.x, self.y))
+            self.screen.blit(self.image_with_umbrella, (self.x, self.y))
 
 
     def hit_by(self, raindrop):
         # TODO: Return True if this Hero is currently colliding with the given Raindrop.
-        pass
+        return pygame.Rect(self.x, self.y , 170 ,192).collidepoint((raindrop.x, raindrop.y ))
 
 class Cloud:
     def __init__(self, screen, x, y, image):
@@ -122,11 +122,14 @@ def main():
 
 
         cloud.draw()
-        Link.draw()
+
         for raindrop in cloud.raindrops:
             raindrop.draw()
             raindrop.move()
+            if Link.hit_by(raindrop):
+                Link.last_hit_time = time.time()
 
+        Link.draw()
         # TODO: Inside the game loop, make the Cloud "rain", and then:
         # TODO    For each Raindrop in the Cloud's list of raindrops:
         # TODO      - move the Raindrop.
