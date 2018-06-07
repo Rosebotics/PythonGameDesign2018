@@ -113,7 +113,7 @@ def main():
     mike = Hero(screen, 300, 400, "Mike_umbrella.png", "Mike.png")
 
     single_raindrop = Raindrop(screen, 500, 200)
-
+       
     # TODO: Enter the game loop, with a clock tick of 60 (or so) at each iteration.
     # done    Make the pygame.QUIT event stop the game.
     while True:
