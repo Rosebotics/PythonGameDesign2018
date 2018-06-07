@@ -90,8 +90,8 @@ class Cloud:
         # TODO    where the new Raindrop starts at:
         # TODO      - x is a random integer between this Cloud's x and this Cloud's x + 300.
         # TODO      - y is this Cloud's y + 100.
-        pass
-
+        new_raindrop = Raindrop(self.screen, random.randint(self.x, self.x + 300), self.y + 100)
+        self.raindrops.append(new_raindrop)
 
 def main():
     # DONE: Initialize the game, display a caption, and set   screen   to a 1000x600 Screen.
@@ -104,8 +104,14 @@ def main():
     # DONE: Make a Clock
     clock = pygame.time.Clock()
 
+
+
+
+
     single_raindrop = Raindrop(screen, 500, 20)
     cloud = Cloud(screen, 300, 50, "cloud.png")
+
+
     mike = Hero(screen, 300, 400, "Mike_umbrella.png" ,  "Mike.png")
     # DONE: Enter the game loop, with a clock tick of 60 (or so) at each iteration.
     # DONE    Make the pygame.QUIT event stop the game.
@@ -124,30 +130,34 @@ def main():
         # TODO      1 pixel down if the Down Arrow key (pygame.K_DOWN) is pressed.
         pressed_keys = pygame.key.get_pressed()
         if pressed_keys[pygame.K_RIGHT]:
-            cloud.x = cloud.x + 2
+            cloud.x = cloud.x + 250
         if pressed_keys[pygame.K_LEFT]:
-            cloud.x = cloud.x - 2
+            cloud.x = cloud.x - 250
         if pressed_keys[pygame.K_UP]:
-            cloud.y = cloud.y - 2
+            cloud.y = cloud.y - 250
         if pressed_keys[pygame.K_DOWN]:
-            cloud.y = cloud.y + 2
+            cloud.y = cloud.y + 250
 
 
         if pressed_keys[pygame.K_d]:
-            mike.x = mike.x + 2
+            mike.x = mike.x + 250
         if pressed_keys[pygame.K_a]:
-            mike.x = mike.x - 2
+            mike.x = mike.x - 250
         if pressed_keys[pygame.K_w]:
-            mike.y = mike.y - 2
+            mike.y = mike.y - 250
         if pressed_keys[pygame.K_s]:
-            mike.y = mike.y + 2
+            mike.y = mike.y + 250
 
 
         # TODO: Inside the game loop, draw the screen, Hero and Cloud.
         cloud.draw()
         mike.draw()
-        single_raindrop.move()
-        single_raindrop.draw()
+        #single_raindrop.move()
+        #single_raindrop.draw()
+        cloud.rain()
+        for raindrop in cloud.raindrops:
+            raindrop.move()
+            raindrop.draw()
         # TODO: Inside the game loop, make the Cloud "rain", and then:
         # TODO    For each Raindrop in the Cloud's list of raindrops:
         # TODO      - move the Raindrop.
