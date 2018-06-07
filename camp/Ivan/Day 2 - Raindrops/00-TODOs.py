@@ -10,19 +10,21 @@ class Raindrop:
         self.screen = screen
         self.x = x
         self.y = y
-        self.image_with_umbrella = pygame.image.load(with_umbrella).convert()
-        self.image_without_umbrella = pygame.image.load(without_umbrella).convert()
+
         self.last_hit_time = 0
 
         # TODO    - Store the screen.
         # TODO    - Set the initial position of the Raindrop to x and y.
         # TODO    - Set the initial speed to a random integer between 5 and 18.
         # TODO  Use instance variables:   screen  x  y  speed.
-        pass
+        self.screen = screen
+        self.x = x
+        self.y = y
+        self.speed = random.randint(5, 18)
 
     def move(self):
         # TODO. Change the  y  position of this Raindrop by its speed.
-        pass
+        self.y = self.y + self.speed
 
     def off_screen(self):
         # TODO. Return  True  if the  y  position of this Raindrop is greater than 800.
@@ -31,7 +33,7 @@ class Raindrop:
     def draw(self):
         # TODO. Draw a vertical line that is 5 pixels long, 2 pixels thick,
         # TODO    from the current position of this Raindrop.
-        pass
+        pygame.draw.line(self.screen, (18, 20, 165), (self.x, self.y), (self.x, self.y + 5), 2)
 
 
 class Hero:
@@ -48,9 +50,11 @@ class Hero:
         self.x = x
         self.y = y
 
-    
+
         self.image_with_umbrella = pygame.image.load(with_umbrella).convert()
         self.image_without_umbrella = pygame.image.load(without_umbrella).convert()
+
+        self.last_hit_time = 0
 
 
     def draw(self):
@@ -58,8 +62,10 @@ class Hero:
         # TODO    If the current time is greater than this Hero's last_hit_time + 1,
         # TODO      draw this Hero WITHOUT an umbrella,
         # TODO      otherwise draw this Hero WITH an umbrella.
-        self.screen.blit(self.image_with_umbrella, (self.x, self.y))
-
+        if time.time() > self.last_hit_time + 1:
+            self.screen.blit(self.image_without_umbrella, (self.x, self.y))
+        else:
+            self.screen.blit(self.image_with_umbrella, (self.x, self.y))
 
     def hit_by(self, raindrop):
         # TODO: Return True if this Hero is currently colliding with the given Raindrop.
@@ -87,11 +93,12 @@ class Cloud:
         self.screen.blit(self.image, (self.x, self.y))
 
     def rain(self):
+        pass
         # TODO. Append a new Raindrop to this Cloud's list of Raindrops,
         # TODO    where the new Raindrop starts at:
         # TODO      - x is a random integer between this Cloud's x and this Cloud's x + 300.
         # TODO      - y is this Cloud's y + 100.
-        pass
+
 
 
 def main():
@@ -108,6 +115,9 @@ def main():
 
     # DONE: Make a Cloud with appropriate images, starting at appropriate positions.
     cloud = Cloud(screen, 300, 50, "cloud.png")
+
+    # temporary test
+    single_raindrop = Raindrop(screen, 500, 20)
 
     # DONE: Make a Hero with appropriate...
     Omega = Hero(screen, 300, 400, "Mike_umbrella.png", "Mike.png")
@@ -128,6 +138,7 @@ def main():
         # TODO      1 pixel up if the Up Arrow key (pygame.K_UP) is pressed.
         # TODO      1 pixel down if the Down Arrow key (pygame.K_DOWN) is pressed.
         pressed_keys = pygame.key.get_pressed()
+        # Move the cloud
         if pressed_keys[pygame.K_d]:
             cloud.x = cloud.x + 5
         if pressed_keys[pygame.K_a]:
@@ -137,10 +148,22 @@ def main():
         if pressed_keys[pygame.K_w]:
             cloud.y = cloud.y - 5
 
+        # Move Omega
+        pressed_keys = pygame.key.get_pressed()
+        if pressed_keys[pygame.K_RIGHT]:
+            Omega.x = Omega.x + 5
+        if pressed_keys[pygame.K_LEFT]:
+            Omega.x = Omega.x - 5
+        if pressed_keys[pygame.K_DOWN]:
+            Omega.y = Omega.y + 5
+        if pressed_keys[pygame.K_UP]:
+            Omega.y = Omega.y - 5
 
         # TODO: Inside the game loop, draw the screen, Hero and Cloud.
         cloud.draw()
         Omega.draw()
+        single_raindrop.draw()
+        single_raindrop.move()
 
         # TODO: Inside the game loop, make the Cloud "rain", and then:
         # TODO    For each Raindrop in the Cloud's list of raindrops:
