@@ -34,7 +34,7 @@ class Hero:
         self.x = x
         self.y = y
         self.image_with_umbrella = pygame.image.load(with_umbrella).convert()
-        self.image_with_umbrella = pygame.image.load(without_umbrella).convert()
+        self.image_without_umbrella = pygame.image.load(without_umbrella).convert()
 
 
         # DONE. Inititalize this Hero, as follows:
@@ -58,8 +58,10 @@ class Hero:
         # TODO    If the current time is greater than this Hero's last_hit_time + 1,
         # TODO      draw this Hero WITHOUT an umbrella,
         # TODO      otherwise draw this Hero WITH an umbrella.
-        self.screen.blit(self.image_with_umbrella (self.x, self.y))
-
+        if time.time() > self.last_hit_time + 1:
+            self.screen.blit(self.image_without_umbrella, (self.x, self.y))
+        else:
+            self.screen.blit(self.image_with_umbrella, (self.x, self.y))
 
 
     def hit_by(self, raindrop):
