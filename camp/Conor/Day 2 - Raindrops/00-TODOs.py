@@ -147,7 +147,7 @@ def main():
             raindrop.draw()
             if john.hit_by(raindrop):
                 john.last_hit_time = time.time()
-
+ 
                 john.draw()
         # TODO: Inside the game loop, draw the screen, Hero and Cloud.
 
