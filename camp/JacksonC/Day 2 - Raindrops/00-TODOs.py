@@ -29,6 +29,7 @@ class Raindrop:
         # TODO    from the current position of this Raindrop.
         pygame.draw.line(self.screen, (0, 0, 150), (self.x, self.y), (self.x, self.y + 5), 2)
 
+
 class Hero:
     def __init__(self, screen, x, y, with_umbrella, without_umbrella):
         # DONE. Inititalize this Hero, as follows:
@@ -54,13 +55,11 @@ class Hero:
         if time.time() > self.last_hit_time + 1:
             self.screen.blit(self.image_without_umbrella, (self.x, self.y))
         else:
-            self.screen.blit(self.image_with_umbrella,(self.x, self.y))
+            self.screen.blit(self.image_with_umbrella, (self.x, self.y))
+
     def hit_by(self, raindrop):
-        # TODO: Return True if this Hero is currently colliding with the given Raindrop.
-        pass
-
-
-
+        # DONE: Return True if this Hero is currently colliding with the given Raindrop.
+        return pygame.Rect(self.x, self.y, 170, 192).collidepoint((raindrop.x,raindrop.y))
 
 
 class Cloud:
@@ -82,29 +81,33 @@ class Cloud:
         self.screen.blit(self.image, (self.x, self.y))
 
     def rain(self):
-
-        pass
+        new_raindrop = Raindrop(self.screen, random.randint(self.x, self.x + 300), self.y + 100)
+        self.raindrops.append(new_raindrop)
 
 
 def main(single_raindrop=None):
-        # DONE: Initialize the game, display a caption, and set screen to a 1000x600 Screen.
+    # DONE: Initialize the game, display a caption, and set screen to a 1000x600 Screen.
     print("fortnite")
     pygame.init()
     pygame.display.set_caption("Raindrops")
-    screen = pygame.display.set_mode( (1000, 600) )
+    screen = pygame.display.set_mode((1000, 600))
 
-        # DONE: Make a Clock
+    # DONE: Make a Clock
     clock = pygame.time.Clock()
 
-        #TODO Make a Hero and Cloud with appropriate images, starting at appropriate positions.
+    # TODO Make a Cloud with appropriate images, starting at appropriate positions.
     cloud = Cloud(screen, 300, 50, "cloud.png")
+    cloud.rain()
+    cloud.rain()
+    cloud.rain()
+    cloud.rain()
 
     # DONE: Make a Hero with appropriate images, starting at appropriate positions.
     mike = Hero(screen, 300, 400, "Mike_umbrella.png", "Mike.png")
     single_raindrop = Raindrop(screen, 500, 50)
 
-        # DONE: Enter the game loop, with a clock tick of 60 (or so) at each iteration.
-        # DONE    Make the pygame.QUIT event stop the game.
+    # DONE: Enter the game loop, with a clock tick of 60 (or so) at each iteration.
+    # DONE    Make the pygame.QUIT event stop the game.
     while True:
         clock.tick(60)
         for event in pygame.event.get():
@@ -128,7 +131,7 @@ def main(single_raindrop=None):
         if pressed_keys[pygame.K_UP]:
             cloud.y = cloud.y - 2
 
-        #move mike
+        # move mike
         if pressed_keys[pygame.K_d]:
             mike.x = mike.x + 5
         if pressed_keys[pygame.K_a]:
@@ -138,12 +141,21 @@ def main(single_raindrop=None):
         if pressed_keys[pygame.K_w]:
             mike.y = mike.y - 5
 
-        # TODO: Inside the game loop, draw the screen, Hero and Cloud.
-        screen.fill((255,255,255))
+        # DONE: Inside the game loop, draw the screen, Hero and Cloud.
+        screen.fill((255, 255, 255))
         cloud.draw()
         mike.draw()
-        single_raindrop.move()
-        single_raindrop.draw()
+        cloud.rain()
+        # single_raindrop.move()
+        # single_raindrop.draw()
+        for raindrop in cloud.raindrops:
+            raindrop.move()
+            raindrop.draw()
+            if mike.hit_by(raindrop):
+                mike.last_hit_time = time.time()
+
+        mike.draw()
+
         # TODO: Inside the game loop, make the Cloud "rain", and then:
         # TODO    For each Raindrop in the Cloud's list of raindrops:
         # TODO      - move the Raindrop.
@@ -152,5 +164,6 @@ def main(single_raindrop=None):
         # TODO      - if the Raindrop is off the screen, delete it from the Cloud's list of Raindrops.
 
         pygame.display.update()
+
 
 main()
