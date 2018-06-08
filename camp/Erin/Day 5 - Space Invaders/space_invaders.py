@@ -20,12 +20,7 @@ class Missile:
 
 
 class Fighter:
-    def __init__(self, screen, x, y):
-        self.screen = screen
-        self.image = pygame.image.load("fighter.png").convert()
-        self.image.set_colorkey((255, 255, 255))
-        self.x = x
-        self.y = y
+    def __init__(self, screen, x,
         self.missiles = []
 
     def draw(self):
