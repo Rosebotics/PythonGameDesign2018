@@ -4,8 +4,9 @@ import time  # Note this!
 import random  # Note this!
 
 
+
 class Raindrop:
-    def __init__(self, screen, x, y, water_droplet ):
+    def __init__(self, screen, x, y, water_droplet,  ):
         # TODO. Inititalize this Raindrop, as follows:
         # TODO    - Store the screen.
         # TODO    - Set the initial position of the Raindrop to x and y.
@@ -17,10 +18,17 @@ class Raindrop:
         self.water_droplet = water_droplet
         self.last_hit_time = 0
         self.image_water_droplet = pygame.image.load(self.water_droplet).convert()
-        self.image_water_droplet = pygame.transform.scale(self.image_water_droplet, (70, 70))
+        self.image_water_droplet = pygame.transform.scale(self.image_water_droplet, (25, 25))
+        self.speed = 10
+
     def move(self):
         # TODO. Change the  y  position of this Raindrop by its speed.
-        pass
+        self.y = self.y + self.speed
+
+    def disappear(self):
+        self.y = 700
+
+
 
     def off_screen(self):
         # TODO. Return  True  if the  y  position of this Raindrop is greater than 800.
@@ -49,13 +57,19 @@ class Draco:
         self.without_umbrella = without_umbrella
         self.last_hit_time = 0
         self.image_umbrella = pygame.image.load(self.with_umbrella).convert()
+        self.image_without_umbrella = pygame.image.load(without_umbrella).convert()
+        self.current_image = self.image_without_umbrella
 
     def draw(self):
         # TODO. Draw (blit) this Hero, at this Hero's position, as follows:
         # TODO    If the current time is greater than this Hero's last_hit_time + 1,
         # TODO      draw this Hero WITHOUT an umbrella,
         # TODO      otherwise draw this Hero WITH an umbrella.
-        self.screen.blit(self.image_umbrella, (self.x, self.y))
+        if time.time() > self.last_hit_time + 1:
+            self.current_image = self.image_without_umbrella
+        else:
+            self.current_image = self.image_umbrella
+        self.screen.blit(self.current_image, (self.x, self.y))
 
     def move(self, dx, dy):
         self.x = self.x + dx
@@ -65,11 +79,20 @@ class Draco:
 
     def hit_by(self, raindrop):
         # TODO: Return True if this Hero is currently colliding with the given Raindrop.
-        pass
+        draco_box = pygame.Rect(self.x, self.y,
+                                 self.current_image.get_width(),
+                                 self.current_image.get_height())
+        raindrop_box = pygame.Rect(raindrop.x, raindrop.y,
+                                   raindrop.image_water_droplet.get_width(),
+                                   raindrop.image_water_droplet.get_height())
+        is_hit =  draco_box.colliderect(raindrop_box)
+        if is_hit:
+            raindrop.disappear()
+        return is_hit
 
 
 class Cloud:
-    def __init__(self, screen, x, y, image):
+    def __init__(self, screen, x, y, image, draco):
         # TODO. Inititalize this Cloud, as follows:
         # TODO    - Store the screen.
         # TODO    - Set the initial position of this Cloud to x and y.
@@ -83,10 +106,8 @@ class Cloud:
         self.image = image
         self.image_cloud = pygame.image.load(image).convert()
         self.direction = 1
-
-
-
-
+        self.raindrops = []
+        self.draco = draco
 
     def draw(self):
         # TODO. Draw (blit) this Cloud's image at its current position.
@@ -105,20 +126,29 @@ class Cloud:
         # TODO    where the new Raindrop starts at:
         # TODO      - x is a random integer between this Cloud's x and this Cloud's x + 300.
         # TODO      - y is this Cloud's y + 100.
-        random_x = random.randint(0, 300)
-        raindrop = Raindrop(self.screen, random_x, self.y + 100, "raindrop.png")
+        rand = random.randint(0, 15)
+        if rand == 0:
+            randomx = self.x + random.randint(0, 280)
+            raindrop = Raindrop(self.screen, randomx, self.y + 100, "water_droplet.png")
+            self.raindrops.append(raindrop)
 
+        for k in range(len(self.raindrops)):
+            raindrop = self.raindrops[k]
+            raindrop.move()
+            raindrop.draw()
+            if self.draco.hit_by(raindrop):
+                self.draco.last_hit_time = time.time()
 
 def main():
     # TODO: Initialize the game, display a caption, and set   screen   to a 1000x600 Screen.
     pygame.init()
-    pygame.display.set_caption("Raindrops")
+    pygame.display.set_caption("                                                                                               A RAINY DAY")
     screen = pygame.display.set_mode((1000, 600))
 
     # TODO: Make a Clock, Hero and Cloud with appropriate images, starting at appropriate positions.
     clock = pygame.time.Clock()
-    draco = Draco(screen, 0, 400, "Mike_umbrella.png", "Mike_png")
-    cloud = Cloud(screen, 15, 25, "cloud.png")
+    draco = Draco(screen, 0, 408, "Mike_umbrella.png", "Mike.png")
+    cloud = Cloud(screen, 15, 25, "cloud.png", draco)
     raindrop = Raindrop(screen, 0, 150, "water_droplet.png")
     # TODO: Enter the game loop, with a clock tick of 60 (or so) at each iteration.
     # TODO    Make the pygame.QUIT event stop the game.
@@ -135,21 +165,23 @@ def main():
         if pressed_keys[pygame.K_LEFT]:
             draco.move(-3, 0)
         if pressed_keys[pygame.K_1]:
-            draco.move(10, 0)
+            draco.move(-20, 0)
         if pressed_keys[pygame.K_2]:
-            draco.move(-10, 0)
+            draco.move(20, 0)
+        if pressed_keys[pygame.K_UP]:
+            draco.move(0, -3)
+        if pressed_keys[pygame.K_DOWN]:
+            draco.move(0, 3)
 
 
         cloud.move(1, 0)
-
-
-
-
         screen.fill((255, 255, 255))
-        draco.draw()
         cloud.draw()
-        raindrop.draw()
+        # raindrop.draw()
+        cloud.rain()
+        draco.draw()
         pygame.display.update()
+
 
     # TODO: Inside the game loop, get the list of keys that are currently pressed.
     # TODO    Arrange so that the Cloud moves:
@@ -171,3 +203,5 @@ def main():
 
 # TODO: Call main.
 main()
+
+
