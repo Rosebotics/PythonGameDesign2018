@@ -15,7 +15,7 @@ class Raindrop:
         self.y = y
         self.image = pygame.image.load(raindrop_pngfile).convert()
         self.image = pygame.transform.scale(self.image, (60, 60))
-        self.speed = 100000000000
+        self.speed = 10
 
     def move(self, dx, dy):
         # TODO. Change the  y  position of this Raindrop by its speed.
@@ -49,8 +49,8 @@ class Hero:
         self.last_hit_time = 0
         self.image_umbrella = pygame.image.load(with_umbrella).convert()
         self.without_umbrella = pygame.image.load(without_umbrella).convert()
-        self.image_umbrella = pygame.transform.scale(self.image_umbrella, (300, 300))
-        self.without_umbrella = pygame.transform.scale(self.without_umbrella, (300, 600))
+        self.image_umbrella = pygame.transform.scale(self.image_umbrella, (250, 320))
+        self.without_umbrella = pygame.transform.scale(self.without_umbrella, (150, 300))
         self.current_image = self.without_umbrella
 
     def draw(self):
@@ -86,7 +86,7 @@ class Hero:
 
     def warp_speed(self, dx, dy):
 
-        self.x = self.x -1500000000000
+        self.x = self.x -150
 
 class Cloud:
     def __init__(self, screen, x, y, filename, hero):
@@ -125,9 +125,9 @@ class Cloud:
         # TODO    where the new Raindrop starts at:
         # TODO      - x is a random integer between this Cloud's x and this Cloud's x + 300.
         # TODO      - y is this Cloud's y + 100.
-        randoms = random.randint(0, 1)
+        randoms = random.randint(0, 25)
         if randoms == 0:
-            randomx = self.x +random.randint(0, 1)
+            randomx = self.x +random.randint(0, 10)
             raindrop = Raindrop(self.screen, randomx, self.y + 100, "depositphotos_21550737-stock-illustration-cartoon-raindrop-with-cat-face.jpg")
             self.raindrops.append(raindrop)
 
@@ -149,7 +149,7 @@ def main():
     # TODO: Make a Clock, Hero and Cloud with appropriate images, starting at appropriate positions.
 
     clock = pygame.time.Clock()
-    hero = Hero(screen, 400, 400, "new_mike.jpg", "new_mike2.0")
+    hero = Hero(screen, 400, 400, "new_mike2.0", "new_mike.jpg")
     raindrop = Raindrop(screen, 200, 300, "depositphotos_21550737-stock-illustration-cartoon-raindrop-with-cat-face.jpg")
     cloud1 = Cloud(screen, 0, 10, "cat.jpg", hero)
 
