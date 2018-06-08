@@ -1,7 +1,18 @@
 import pygame, sys, random, time
 from pygame.locals import *
 
+class Bomb:
+    def __init__(self, screen, x):
+        self.exploded = False
+        self.y = 920
+        self.screen = screen
+        self.x = x
 
+    def move(self):
+        self.y = self.y + 5
+
+    def draw(self):
+        pygame.draw.line(self.screen, (255, 0, 0), (self.x, self.y), (self.x, self.y + 8), 1)
 
 
 class Missile:
