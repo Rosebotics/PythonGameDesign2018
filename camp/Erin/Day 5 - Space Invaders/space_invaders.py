@@ -1,23 +1,26 @@
+
+
 import pygame, sys, random, time
 from pygame.locals import *
 
-
 class Missile:
     def __init__(self, screen, x):
-        # TODO: Save the screen into a field
-        # TODO: Save the x into a field
-        # TODO: Set the y to 591 as a field (which is just above the fighter)
-        # TODO: Set a field called exploded to False
-        pass
+    # ___________________
+        self.screen = screen
+    # ___________________
+        self.x = x
+        self.y = 591
+        self.exploded = False
+
 
     def move(self):
         # TODO: Move the missile up 5
-        pass
+        self.y = self.y - 5
+
 
     def draw(self):
         # TODO: Draw a red line from x, y that is 8 pixels in height
-        pass
-
+        pygame.draw.line(self.screen, (255, 0, 0), (self.x, self.y), (self.x, self.y - 8), 2)
 
 class Fighter:
     def __init__(self, screen, x, y):
@@ -38,7 +41,6 @@ class Fighter:
         for k in range(len(self.missiles) - 1, -1, -1):
             if self.missiles[k].exploded or self.missiles[k].y < 0:
                 del self.missiles[k]
-
 
 class Badguy:
     def __init__(self, screen, x, y):
@@ -67,9 +69,9 @@ class Badguy:
     def hit_by(self, missile):
         return pygame.Rect(self.x, self.y, 70, 45).collidepoint(missile.x, missile.y)
 
-
 class EnemyFleet:
     def __init__(self, screen, enemy_rows):
+
         self.badguys = []
         for j in range(enemy_rows):
             for k in range(8):
@@ -92,13 +94,14 @@ class EnemyFleet:
             if self.badguys[k].dead:
                 del self.badguys[k]
 
-
 def main():
     pygame.init()
     clock = pygame.time.Clock()
     pygame.display.set_caption("Space Invaders")
     screen = pygame.display.set_mode((640, 650))
-
+    enemy_rows = 3
+    enemy = EnemyFleet(screen, enemy_rows )
+    Iconic = Fighter(screen,320,590)
     # TODO: Set    enemy_rows    to an initial value of 3.
     # TODO: Create an EnemyFleet object (called enemy) with the screen and enemy_rows
     # TODO: Create a Fighter (called fighter) at location  320, 590
@@ -108,6 +111,9 @@ def main():
         for event in pygame.event.get():
             pressed_keys = pygame.key.get_pressed()
             # TODO: If the event type is KEYDOWN and pressed_keys[K_SPACE} is True, then fire a missile
+            if pressed_keys[pygame.K_SPACE] and event.type == KEYDOWN:
+                Iconic.fire()
+
             if event.type == QUIT:
                 sys.exit()
         screen.fill((0, 0, 0))
@@ -116,12 +122,28 @@ def main():
         # TODO: If K_RIGHT is pressed move the fighter right 3
         # TODO: Draw the fighter
 
+
+        Iconic.draw()
+        pressed_keys = pygame.key.get_pressed()
+        if pressed_keys[pygame.K_RIGHT]:
+            Iconic.x = Iconic.x + 5
+
+        pressed_keys = pygame.key.get_pressed()
+        if pressed_keys[pygame.K_LEFT]:
+            Iconic.x = Iconic.x + -5
+
+
         # TODO: Move the enemy
         # TODO: Draw the enemy
+        enemy.move()
+        enemy.draw()
 
         # TODO: For each missle in the fighter missiles
         # TODO: Move the missle
         # TODO: Draw the missle
+        for missile in Iconic.missiles:
+            missile.move()
+            missile.draw()
 
         # TODO: For each badguy in the enemy badguys
         #     TODO: For each missle in the fighter missiles
@@ -139,6 +161,5 @@ def main():
         #     TODO: Create a new enemy with the screen and enemy_rows
 
         pygame.display.update()
-
 
 main()
