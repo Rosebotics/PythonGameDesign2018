@@ -179,7 +179,7 @@ def main():
             raindrop.draw()
             if mike.hit_by(raindrop):
                 mike.last_hit_time = time.time()
-
+ 
         # TODO: Inside the game loop, make the Cloud "rain", and then:
         # TODO    For each Raindrop in the Cloud's list of raindrops:
         # TODO      - move the Raindrop.
