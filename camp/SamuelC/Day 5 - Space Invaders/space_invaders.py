@@ -4,19 +4,22 @@ from pygame.locals import *
 
 class Missile:
     def __init__(self, screen, x):
-        # TODO: Save the screen into a field
-        # TODO: Save the x into a field
-        # TODO: Set the y to 591 as a field (which is just above the fighter)
-        # TODO: Set a field called exploded to False
-        pass
+        # done Save the screen into a field
+        self.screen = screen
+        # done: Save the x into a field
+        self.x = x
+        # done Set the y to 591 as a field (which is just above the fighter)
+        self.y = 591
+        # done Set a field called exploded to False
+        self.exploded = False
 
     def move(self):
-        # TODO: Move the missile up 5
-        pass
+        # done: Move the missile up 5
+        self.y = self.y - 5
 
     def draw(self):
-        # TODO: Draw a red line from x, y that is 8 pixels in height
-        pass
+        # done: Draw a red line from x, y that is 8 pixels in height
+        pygame.draw.line(self.screen, (255, 0, 0), (self.x, self.y), (self.x, self.y - 8), 2)
 
 
 class Fighter:
@@ -99,45 +102,67 @@ def main():
     pygame.display.set_caption("Space Invaders")
     screen = pygame.display.set_mode((640, 650))
 
-    # TODO: Set    enemy_rows    to an initial value of 3.
-    # TODO: Create an EnemyFleet object (called enemy) with the screen and enemy_rows
-    # TODO: Create a Fighter (called fighter) at location  320, 590
+    # doneSet    enemy_rows    to an initial value of 3.
+    enemy_rows = 3
+    # done Create an EnemyFleet object (called enemy) with the screen and enemy_rows
+    enemy = EnemyFleet(screen,enemy_rows)
+    # done Create a Fighter (called fighter) at location  320, 590
+    fighter = Fighter(screen, 320, 590)
+
 
     while True:
         clock.tick(60)
         for event in pygame.event.get():
             pressed_keys = pygame.key.get_pressed()
-            # TODO: If the event type is KEYDOWN and pressed_keys[K_SPACE} is True, then fire a missile
+            # done: If the event type is KEYDOWN and pressed_keys[K_SPACE} is True, then fire a missile
+            if pressed_keys[pygame.K_SPACE] and event.type == KEYDOWN:
+                fighter.fire()
             if event.type == QUIT:
                 sys.exit()
         screen.fill((0, 0, 0))
         pressed_keys = pygame.key.get_pressed()
-        # TODO: If K_LEFT is pressed move the fighter left 3
-        # TODO: If K_RIGHT is pressed move the fighter right 3
-        # TODO: Draw the fighter
+        # done If K_LEFT is pressed move the fighter left 3
+        pressed_keys = pygame.key.get_pressed()
+        if pressed_keys[pygame.K_LEFT]:
+            fighter.x = fighter.x - 3
+        # done: If K_RIGHT is pressed move the fighter right 3
+        pressed_keys = pygame.key.get_pressed()
+        if pressed_keys[pygame.K_RIGHT]:
+            fighter.x = fighter.x + 3
+        # done Draw the fighter
+        fighter.draw()
 
-        # TODO: Move the enemy
-        # TODO: Draw the enemy
-
-        # TODO: For each missle in the fighter missiles
-        # TODO: Move the missle
-        # TODO: Draw the missle
-
-        # TODO: For each badguy in the enemy badguys
-        #     TODO: For each missle in the fighter missiles
-        #         TODO: If the badguy is hit by the missle
-        #             TODO: Mark the badguy as dead = True
-        #             TODO: Mark the missile as exploded = True
+        # done Move the enemy
+        enemy.move()
+        # done Draw the enemy
+        enemy.draw()
 
 
-        # TODO: Use the fighter to remove exploded missiles
-        # TODO: Use the enemy to remove dead badguys
+        for missile in fighter.missiles:
+            missile.move()
+            missile.draw()
+
+
+
+        for badguy in enemy.badguys:
+            for missile in fighter.missiles:
+                if badguy.hit_by(missile):
+                    badguy.dead = True
+                    missile.exploded = True
+
+
+        # done Use the fighter to remove exploded missiles
+        fighter.remove_exploded_missles()
+        # done: Use the enemy to remove dead badguys
+        enemy.remove_dead_badguys()
 
 
         # TODO: If the enemy id_defeated
         #     TODO: Increment the enemy_rows
         #     TODO: Create a new enemy with the screen and enemy_rows
-
+        if enemy.is_defeated:
+            enemy_rows = enemy_rows + 1       
+            enemy = EnemyFleet(screen, enemy_rows)
         pygame.display.update()
 
 
