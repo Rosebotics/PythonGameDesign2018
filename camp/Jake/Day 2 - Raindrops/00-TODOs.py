@@ -145,7 +145,7 @@ def main():
             cloud.y = cloud.y - 2
 
         if pressed_keys [pygame.K_DOWN]:
-            cloud.y = cloud.y + 2 
+            cloud.y = cloud.y + 2
 
 
         if pressed_keys[pygame.K_d]:
@@ -153,6 +153,12 @@ def main():
 
         if pressed_keys[pygame.K_a]:
             mike.x = mike.x - 2
+        cloud.rain()
+        cloud.rain()
+        cloud.rain()
+        cloud.rain()
+        cloud.rain()
+        cloud.rain()
         cloud.rain()
         cloud.rain()
         cloud.rain()
