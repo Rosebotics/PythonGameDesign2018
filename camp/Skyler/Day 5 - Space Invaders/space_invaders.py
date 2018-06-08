@@ -120,7 +120,7 @@ def main():
             # DONE: If the event type is KEYDOWN and pressed_keys[K_SPACE} is True, then fire a missile
             # if pressed_keys[pygame.K_SPACE]:
             #     fighter.fire()
-            if event.type == QUIT:
+            if event.type == QUIT: 
                 sys.exit()
         screen.fill((0, 0, 0))
         pressed_keys = pygame.key.get_pressed()
