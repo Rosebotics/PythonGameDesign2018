@@ -33,7 +33,7 @@ class Fighter:
 
     def remove_exploded_missles(self):
         for k in range(len(self.missiles) - 1, -1, -1):
-            if self.missiles[k].exploded:
+            if self.missiles[k].exploded or self.missiles[k].y < 0:
                 del self.missiles[k]
 
 
