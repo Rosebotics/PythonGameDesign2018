@@ -74,7 +74,8 @@ class Hero:
         raindrop_box = pygame.Rect(raindrop.x, raindrop.y,
                                    raindrop.image.get_width(),
                                    raindrop.inage.get_height())
-        return hero_box.colliderect(raindrop_box:)
+
+
 class Cloud:
     def __init__(self, screen, x, y, image, hero):
         # TODO. Inititalize this Cloud, as follows:
