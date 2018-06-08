@@ -5,30 +5,38 @@ from pygame.locals import *
 class Missile:
     def __init__(self, screen, x):
         # Store the data.  Initialize:   y to 591   and   exploded to False.
+        pass
 
     def move(self):
         # Make self.y 5 smaller than it was (which will cause the Missile to move UP).
+        pass
 
     def draw(self):
         # Draw a horizontal, 1-pixel thick, 8 pixels long, red line on the screen,
         # where the line starts at the current position of this Missile.
+        pass
 
 class Fighter:
     def __init__(self, screen, x, y):
         # Store the data.
         # Set   self.missiles   to the empty list.
         # Load the file  "fighter.png"  as the image. and set its colorkey to white.
+        pass
 
     def draw(self):
         # Draw this Fighter, using its image at its current (x, y) position.
+        pass
 
     def fire(self):
-        self.missiles.append(Missile(self.screen, self.x + 50))
+        # Construct a new Missile 50 pixels to the right of this Fighter.
+        # Append that Missile to this Fighter's list of Missile objects.
+        pass
 
     def remove_exploded_missles(self):
         # for k in range(len(self.missiles) - 1, -1, -1):
             # if self.missiles[k].exploded or self.missiles[k].y < 0:
                 # del self.missiles[k]
+        pass
 
 
 class Badguy:
@@ -36,18 +44,22 @@ class Badguy:
         # Store the data.
         # Set   dead to False   and   original_x to x   and move_right to True.
         # Load the file  "badguy.png"  as the image. and set its colorkey to black.
+        pass
 
     def move(self):
         # Move 2 units in the current direction.
         # Switch direction if this Badguy's position is more than 100 pixels from its original position.
+        pass
 
     def draw(self):
         # Draw this Badguy, using its image at its current (x, y) position.
+        pass
 
     def hit_by(self, missile):
         # Return True if a 70x45 rectangle at this Badguy's current position
         #   collides with a point the given missile's current position.
         # Return False otherwise.
+        pass
 
 
 class EnemyFleet:
@@ -61,12 +73,15 @@ class EnemyFleet:
     def is_defeated(self):
         # Return True if the number of badguys in this Enemy Fleet is 0,
         # otherwise return False.
+        pass
 
     def move(self):
         # Make each badguy in this EnemyFleet move.
+        pass
 
     def draw(self):
         # Make each badguy in this EnemyFleet draw itself.
+        pass
 
     def remove_dead_badguys(self):
         for k in range(len(self.badguys) - 1, -1, -1):
