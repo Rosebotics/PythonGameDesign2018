@@ -16,7 +16,6 @@ class Raindrop:
     def move(self):
         self.y = self.y + self.speed
 
-    def off_screen(self):
 
 
     def draw(self):
