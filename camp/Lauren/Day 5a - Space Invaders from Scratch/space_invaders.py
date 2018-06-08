@@ -1,6 +1,22 @@
 import pygame, sys, random, time
 from pygame.locals import *
 
+class Bomb:
+    def __init__(self, screen, x):
+
+        self.exploded = False
+        self.y = 591
+        self.x = x
+        self.screen = screen
+
+    def move(self):
+
+        self.y = self.y + 5
+
+    def draw(self):
+
+        pygame.draw.line(self.screen, (255, 0, 0), (self.x, self.y), (self.x, self.y +8), 1)
+
 class Missile:
     def __init__(self, screen, x):
         # Store the data.  Initialize:   y to 591   and   exploded to False.
@@ -81,6 +97,16 @@ class Badguy:
             self.x = self.x - 2
             if self.x < self.original_x - 100:
                 self.moving_right = True
+
+    def bomb(self):
+
+        b = Bomb(self.screen, self.x - 50)
+        self.bomb.append(b)
+
+    def remove_exploded_bombs(self):
+        for k in range(len(self.bombs) - 1, -1, -1):
+            if self.bombs[k].exploded or self.bombs[k].y < 0:
+                del self.bombs[k]
 
 
     def draw(self):
