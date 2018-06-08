@@ -54,10 +54,12 @@ class Badguy:
             self.x = self.x + 2
             if self.x > self.original_x + 100:
                 self.moving_right = False
+                self.y = self.y + 12.5
         else:
             self.x = self.x - 2
             if self.x < self.original_x - 100:
                 self.moving_right = True
+                self.y = self.y + 12.5
 
     def draw(self):
         self.screen.blit(self.image, (self.x, self.y))
@@ -92,6 +94,7 @@ class EnemyFleet:
 
 
 def main():
+    game_over = False
     pygame.init()
     clock = pygame.time.Clock()
     pygame.display.set_caption("Space Invaders")
@@ -113,9 +116,9 @@ def main():
                 sys.exit()
         screen.fill((0, 0, 0))
         pressed_keys = pygame.key.get_pressed()
-        if pressed_keys[pygame.K_RIGHT]:
+        if pressed_keys[pygame.K_RIGHT]and fighter.x < 587:
             fighter.x = fighter.x + 4
-        if pressed_keys[pygame.K_LEFT]:
+        if pressed_keys[pygame.K_LEFT] and fighter.x > -47:
             fighter.x = fighter.x - 4
 
         fighter.draw()
@@ -151,9 +154,17 @@ def main():
             enemy_rows = enemy_rows + 1
             enemy = EnemyFleet(screen, enemy_rows)
 
+        for badguy in enemy.badguys:
+            if badguy.y > 590:
+                print("GAME OVER ")
+                game_over = True
+
+        if not game_over:
+                    pygame.display.update()
 
 
-        pygame.display.update()
+
+
 
 
 main()
