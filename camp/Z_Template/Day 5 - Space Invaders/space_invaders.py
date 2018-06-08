@@ -4,16 +4,19 @@ from pygame.locals import *
 
 class Missile:
     def __init__(self, screen, x):
-        self.exploded = False
-        self.screen = screen
-        self.x = x
-        self.y = 591
+        # TODO: Save the screen into a field
+        # TODO: Save the x into a field
+        # TODO: Set the y to 591 as a field (which is just above the fighter)
+        # TODO: Set a field called exploded to False
+        pass
 
     def move(self):
-        self.y = self.y - 5
+        # TODO: Move the missile up 5
+        pass
 
     def draw(self):
-        pygame.draw.line(self.screen, (255, 0, 0), (self.x, self.y), (self.x, self.y + 8), 1)
+        # TODO: Draw a red line from x, y that is 8 pixels in height
+        pass
 
 
 class Fighter:
