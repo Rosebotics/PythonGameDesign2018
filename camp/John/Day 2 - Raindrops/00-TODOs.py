@@ -18,10 +18,11 @@ class Raindrop:
         self.raindrop_image = raindrop_image
         self.image = pygame.image.load(self.raindrop_image).convert()
         self.image = pygame.transform.scale(self.image, (25, 50))
+        self.speed = 10
 
     def move(self):
         # TODO. Change the  y  position of this Raindrop by its speed.
-        pass
+        self.y = self.y + self.speed
 
     def off_screen(self):
         # TODO. Return  True  if the  y  position of this Raindrop is greater than 800.
@@ -37,19 +38,17 @@ class Hero:
         self.screen = screen
         self.x = x
         self.y = y
-        self.with_umbrella = with_umbrella
-        self.without_umbrella = without_umbrella
         self.last_hit_time = 0
-        self.image_umbrella = pygame.image.load(self.with_umbrella).convert()
-
+        self.image_umbrella = pygame.image.load(with_umbrella).convert()
+        self.image_without_umbrella = pygame.image.load(without_umbrella).convert()
+        self.current_image = self.image_without_umbrella
 
     def draw(self):
-        # TODO. Draw (blit) this Hero, at this Hero's position, as follows:
-        # TODO    If the current time is greater than this Hero's last_hit_time + 1,
-        # TODO      draw this Hero WITHOUT an umbrella,
-        # TODO      otherwise draw this Hero WITH an umbrella.
-        self.screen.blit(self.image_umbrella, (self.x, self.y))
-
+        if time.time() > self.last_hit_time + 1:
+            self.current_image = self.image_without_umbrella
+        else:
+            self.current_image = self.image_umbrella
+        self.screen.blit(self.current_image, (self.x, self.y))
 
     def move(self, dx, dy):
         self.x = self.x + dx
@@ -57,41 +56,51 @@ class Hero:
 
     def hit_by(self, raindrop):
         # TODO: Return True if this Hero is currently colliding with the given Raindrop.
-        pass
+        hero_box = pygame.Rect(self.x, self.y,
+                               self.current_image.get_width(),
+                               self.current_image.get_height())
+        raindrop_box = pygame.Rect(raindrop.x, raindrop.y,
+                                   raindrop.image.get_width(),
+                                   raindrop.image.get_height())
+        return hero_box.colliderect(raindrop_box)
 
 class Cloud:
-    def __init__(self, screen, x, y, cloud):
+    def __init__(self, screen, x, y, cloud, hero):
         # TODO    - Set the list of Raindrop objects for this Cloud to the empty list.
-        # TODO  Use instance variables:
-        # TODO     screen  x  y  image   raindrops.
         self.screen = screen
         self.x = x
         self.y = y
         self.cloud = cloud
         self.image_cloud = pygame.image.load(self.cloud).convert()
         self.direction = 1
-
+        self.raindrops = []
+        self.hero = hero
 
     def draw(self):
         self.screen.blit(self.image_cloud, (self.x, self.y))
 
     def rain(self):
-        # TODO. Append a new Raindrop to this Cloud's list of Raindrops,
-        # TODO    where the new Raindrop starts at:
-        # TODO      - x is a random integer between this Cloud's x and this Cloud's x + 300.
-        # TODO      - y is this Cloud's y + 100.
-        random_x = random.randint(0, 240) + self.x
-        raindrop = Raindrop(self.screen, random_x, self.y + 100, "Mike.png")
+        randomj = random.randint(0, 1)
+        if randomj == 0:
+            randomx = self.x + random.randint(0, 175)
+            raindrop = Raindrop(self.screen, randomx, self.y + 175, "Mike.png")
+            self.raindrops.append(raindrop)
+
+        for k in range(len(self.raindrops)):
+            raindrop = self.raindrops[k]
+            raindrop.move()
+            if self.hero.hit_by(raindrop):
+                self.hero.last_hit_time = time.time()
+            else:
+                raindrop.draw()
 
     def move(self, dx, dy):
         self.x = self.x + (dx * self.direction)
         self.y = self.y + dy
         if self.x > 1800 - 150:
             self.direction = -1
-        elif self.x < 0:
+        elif self.x < -20:
             self.direction = 1
-
-
 
 def main():
     pygame.init()
@@ -99,8 +108,7 @@ def main():
     screen = pygame.display.set_mode((1900, 1000))
     clock = pygame.time.Clock()
     hero = Hero(screen, 900, 810, "Mike_umbrella.png", "Mike.png")
-    cloud = Cloud(screen, 850, 0, "images.jpeg")
-    raindrop = Raindrop(screen, 500, 500, "Mike.png")
+    cloud = Cloud(screen, 850, 0, "images.jpeg", hero)
 
     while True:
         screen.fill((255, 255, 255))
@@ -117,37 +125,26 @@ def main():
             hero.move(0, -10)
         if pressed_keys[pygame.K_DOWN]:
             hero.move(0, 10)
+
         cloud.move(2, 0)
 
         hero.draw()
         cloud.draw()
-        raindrop.draw()
+        cloud.rain()
 
         pygame.display.update()
-
 
     # TODO: Make a Clock, Hero and Cloud with appropriate images, starting at appropriate positions.
     clock = pygame.time.Clock()
     hero =  Hero(screen, 900, 810, "Mike_umbrella.png", "Mike.png")
     cloud = Cloud(screen, 900, 10, "images.jpeg")
-
-    # TODO: Inside the game loop, get the list of keys that are currently pressed.
-    # TODO    Arrange so that the Cloud moves:
-    # TODO      1 pixel to the right if the Right Arrow key (pygame.K_RIGHT) is pressed.
-    # TODO      1 pixel to the left if the Left Arrow key (pygame.K_LEFT) is pressed.
-    # TODO      1 pixel up if the Up Arrow key (pygame.K_UP) is pressed.
-    # TODO      1 pixel down if the Down Arrow key (pygame.K_DOWN) is pressed.
-
-    # TODO: Inside the game loop, draw the screen, Hero and Cloud.
+    raindrop = Raindrop(screen, 500, 500, "Mike.png")
 
     # TODO: Inside the game loop, make the Cloud "rain", and then:
     # TODO    For each Raindrop in the Cloud's list of raindrops:
-    # TODO      - move the Raindrop.
-    # TODO      - draw the Raindrop.
     # TODO      - if the Hero is hit by a Raindrop, set the Hero's last_time_hit to the current time.
     # TODO      - if the Raindrop is off the screen, delete it from the Cloud's list of Raindrops.
     pass
-
 
 # TODO3: Call main.
 main()
