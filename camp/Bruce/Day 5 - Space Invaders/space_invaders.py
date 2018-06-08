@@ -48,15 +48,18 @@ class Badguy:
         self.original_x = x
         self.moving_right = True
 
+
     def move(self):
         if self.moving_right:
             self.x = self.x + 2
             if self.x > self.original_x + 100:
                 self.moving_right = False
+                self.y = self.y + 20
         else:
             self.x = self.x - 2
             if self.x < self.original_x - 100:
                 self.moving_right = True
+                self.y = self.y + 20
 
     def draw(self):
         self.screen.blit(self.image, (self.x, self.y))
@@ -91,6 +94,7 @@ class EnemyFleet:
 
 
 def main():
+    game_over = False
     pygame.init()
     clock = pygame.time.Clock()
     pygame.display.set_caption("Space Invaders")
@@ -104,16 +108,16 @@ def main():
         clock.tick(60)
         for event in pygame.event.get():
             pressed_keys = pygame.key.get_pressed()
-            if event.type == QUIT:
+        if event.type == QUIT:
                 sys.exit()
-            if pressed_keys[K_SPACE] and event.type == KEYDOWN:
+        if pressed_keys[K_SPACE] and event.type == KEYDOWN:
                 print("Fire ")
                 fighter.fire()
         screen.fill((0, 0, 0))
         pressed_keys = pygame.key.get_pressed()
-        if pressed_keys[pygame.K_LEFT]:
+        if pressed_keys[pygame.K_LEFT] and fighter.x > 0:
             fighter.x = fighter.x - 3
-        if pressed_keys[pygame.K_RIGHT]:
+        if pressed_keys[pygame.K_RIGHT] and fighter.x < (640-100):
             fighter.x = fighter.x + 3
 
         enemy.draw()
@@ -139,10 +143,17 @@ def main():
         if enemy.is_defeated:
             enemy_rows = enemy_rows + 1
             enemy = EnemyFleet(screen, enemy_rows)
-        #     TODO: Increment the enemy_rows
-        #     TODO: Create a new enemy with the screen and enemy_rows
 
-        pygame.display.update()
+
+
+        for badguy in enemy.badguys:
+            if badguy.y > 590:
+                print ('you just lost')
+                game_over = True
+
+        if not game_over:
+            pygame.display.update()
+
 
 
 main()
