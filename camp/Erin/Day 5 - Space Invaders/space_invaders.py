@@ -16,11 +16,11 @@ class Missile:
     def move(self):
         # TODO: Move the missile up 5
         self.y = self.y - 5
-
+ 
 
     def draw(self):
         # TODO: Draw a red line from x, y that is 8 pixels in height
-        pygame.draw.line(self.screen, (255, 0, 0), (self.x, self.y), (self.x, self.y - 8), 2)
+        pygame.draw.line(self.screen, ((random.randint(0, 255)), (random.randint (0, 255)), (random.randint (0, 255))), (self.x, self.y), (self.x, self.y - 8), 20000)
 
 class Fighter:
     def __init__(self, screen, x, y):
@@ -58,10 +58,13 @@ class Badguy:
             self.x = self.x + 2
             if self.x > self.original_x + 100:
                 self.moving_right = False
+                self.y = self.y + 15
+
         else:
             self.x = self.x - 2
             if self.x < self.original_x - 100:
                 self.moving_right = True
+                self.y = self.y + 15
 
     def draw(self):
         self.screen.blit(self.image, (self.x, self.y))
@@ -108,6 +111,7 @@ def main():
 
     while True:
         clock.tick(60)
+        game_over = False
         for event in pygame.event.get():
             pressed_keys = pygame.key.get_pressed()
             # TODO: If the event type is KEYDOWN and pressed_keys[K_SPACE} is True, then fire a missile
@@ -125,11 +129,11 @@ def main():
 
         Iconic.draw()
         pressed_keys = pygame.key.get_pressed()
-        if pressed_keys[pygame.K_RIGHT]:
+        if pressed_keys[pygame.K_RIGHT] and Iconic.x < 640 -50:
             Iconic.x = Iconic.x + 5
 
         pressed_keys = pygame.key.get_pressed()
-        if pressed_keys[pygame.K_LEFT]:
+        if pressed_keys[pygame.K_LEFT] and Iconic.x > 0 -50:
             Iconic.x = Iconic.x + -5
 
 
@@ -150,16 +154,32 @@ def main():
         #         TODO: If the badguy is hit by the missle
         #             TODO: Mark the badguy as dead = True
         #             TODO: Mark the missile as exploded = True
-
+        for badguy in enemy.badguys:
+            for missile in Iconic.missiles:
+                if badguy.hit_by(missile):
+                    badguy.dead = True
+                    missile.explode = True
 
         # TODO: Use the fighter to remove exploded missiles
         # TODO: Use the enemy to remove dead badguys
-
+        Iconic.remove_exploded_missles()
+        enemy.remove_dead_badguys()
 
         # TODO: If the enemy id_defeated
         #     TODO: Increment the enemy_rows
         #     TODO: Create a new enemy with the screen and enemy_rows
+        if enemy.is_defeated:
+            enemy_rows = enemy_rows + 1
+            enemy = EnemyFleet(screen, enemy_rows)
 
-        pygame.display.update()
+
+
+        for badguy in enemy.badguys:
+            if badguy.y > 590:
+                print("You just lost!!!")
+                game_over = True
+
+        if not game_over:
+            pygame.display.update()
 
 main()
