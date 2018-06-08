@@ -54,12 +54,12 @@ class Badguy:
             self.x = self.x + 2
             if self.x > self.original_x + 100:
                 self.moving_right = False
-                self.y = self.y + 12.5
+                self.y = self.y + 17.5
         else:
             self.x = self.x - 2
             if self.x < self.original_x - 100:
                 self.moving_right = True
-                self.y = self.y + 12.5
+                self.y = self.y + 17.5
 
     def draw(self):
         self.screen.blit(self.image, (self.x, self.y))
@@ -111,15 +111,16 @@ def main():
             pressed_keys = pygame.key.get_pressed()
             if pressed_keys[pygame.K_SPACE] and event.type == KEYDOWN:
                 print("FIRE!!!!!")
-                fighter.fire()
+                fighter.fire         ()
             if event.type == QUIT:
                 sys.exit()
         screen.fill((0, 0, 0))
         pressed_keys = pygame.key.get_pressed()
         if pressed_keys[pygame.K_RIGHT]and fighter.x < 587:
-            fighter.x = fighter.x + 4
+            fighter.x = fighter.x + 7        
         if pressed_keys[pygame.K_LEFT] and fighter.x > -47:
-            fighter.x = fighter.x - 4
+            fighter.x = fighter.x - 7
+
 
         fighter.draw()
 
