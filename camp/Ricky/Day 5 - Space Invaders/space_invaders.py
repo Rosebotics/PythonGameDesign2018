@@ -58,7 +58,9 @@ class Badguy:
         if self.moving_right:
             self.x = self.x + 2
             if self.x > self.original_x + 100:
-                self.moving_right = False
+                self.moving_right = True
+                self.y = self.y + 15
+
         else:
             self.x = self.x - 2
             if self.x < self.original_x - 100:
@@ -83,8 +85,9 @@ class EnemyFleet:
         return len(self.badguys) == 0
 
     def move(self):
-        for badguy in self.badguys:
-            badguy.move()
+        if self.moving_right:
+            for badguy in self.badguys:
+                badguy.move()
 
     def draw(self):
         for badguy in self.badguys:
@@ -103,7 +106,7 @@ def main():
     screen = pygame.display.set_mode((640, 650))
 
     # TODO: Set    enemy_rows    to an initial value of 3
-    enemy_rows = 4
+    enemy_rows
     # TODO: Create an Enemy Fleet object (called enemy) with the screen and enemy_rows
     enemy = EnemyFleet(screen, 4)
     # TODO: Create a Fighter (called fighter) at location  320, 590, enemy_rowa
