@@ -129,8 +129,7 @@ def main():
         # TODO      1 pixel up if the Up Arrow key (pygame.K_UP) is pressed.
         # TODO      1 pixel down if the Down Arrow key (pygame.K_DOWN) is pressed.
         pressed_keys = pygame.key.get_pressed()
-        if pressed_keys[pygame.K_RIGHT]:
-            cloud.x = cloud.x + 10
+
         if pressed_keys[pygame.K_LEFT]:
             cloud.x = cloud.x - 10
         if pressed_keys[pygame.K_UP]:
