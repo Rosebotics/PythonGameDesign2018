@@ -65,7 +65,7 @@ class Badguy:
         return pygame.Rect(self.x, self.y, 70, 45).collidepoint(missile.x, missile.y)
 
 
-class Enemy:
+class EnemyFleet:
     def __init__(self, screen, enemy_rows):
         self.badguys = []
         for j in range(enemy_rows):
@@ -97,7 +97,7 @@ def main():
     screen = pygame.display.set_mode((640, 650))
 
     enemy_rows = 3
-    enemy = Enemy(screen, enemy_rows)
+    enemy = EnemyFleet(screen, enemy_rows)
     fighter = Fighter(screen, 320, 590)
     while True:
         clock.tick(60)
@@ -133,7 +133,7 @@ def main():
 
         if enemy.is_defeated:
             enemy_rows = enemy_rows + 1
-            enemy = Enemy(screen, enemy_rows)
+            enemy = EnemyFleet(screen, enemy_rows)
 
         pygame.display.update()
 

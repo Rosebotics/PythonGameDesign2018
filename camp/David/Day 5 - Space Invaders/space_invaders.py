@@ -65,7 +65,7 @@ class Badguy:
         return pygame.Rect(self.x, self.y, 70, 45).collidepoint(missile.x, missile.y)
 
 
-class Enemy:
+class EnemyFleet:
     def __init__(self, screen, enemy_rows):
         self.badguys = []
         for j in range(enemy_rows):
@@ -97,7 +97,7 @@ def main():
     screen = pygame.display.set_mode((640, 650))
 
     # TODO: Set    enemy_rows    to an initial value of 3.
-    # TODO: Create an Enemy object (called enemy) with the screen and enemy_rows
+    # TODO: Create an EnemyFleet object (called enemy) with the screen and enemy_rows
     # TODO: Create a Fighter (called fighter) at location  320, 590
 
     while True:
