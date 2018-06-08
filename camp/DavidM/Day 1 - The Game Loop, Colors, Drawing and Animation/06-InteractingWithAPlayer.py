@@ -17,11 +17,13 @@ while True:
         print(event)
         if event.type == pygame.QUIT:
             sys.exit()
+
     pressed_keys = pygame.key.get_pressed()
     if pressed_keys[pygame.K_RIGHT]:
         kpos = kpos + 1
     if pressed_keys[pygame.K_LEFT]:
         kpos = kpos - 1
+
     screen.fill((255, 105, 180))  # Hot pink
     pygame.draw.circle(screen, (255, 0, 0), (xpos, 50), 30)
     pygame.draw.rect(screen, (0, 0, 0), (kpos, 300, 100, 50))
