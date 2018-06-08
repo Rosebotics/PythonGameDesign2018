@@ -3,7 +3,7 @@ from pygame.locals import *
 
 
 class Missile:
-    def __init__(self, screen, x):
+    def __init__(self, screen, x): 
         self.screen = screen
         self.x = x
         self.y = 591
