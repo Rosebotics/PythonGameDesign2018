@@ -25,12 +25,11 @@ while True:
         print(event)
         if event.type == pygame.QUIT:
             sys.exit()
-    screen.fill((244, 105, 180))  # Hot pink
-    pygame.draw.circle(screen, (255, 255, 255,), (255, 255), 255)
+    screen.fill((244, 105, 180))  # blue
+    pygame.draw.circle(screen, (255, 255, 255,), (255, 255), 110)
     pygame.display.update()
-
-
-# TODO: With your instructor's help (live coding):
+    pygame.display.update()
+# TODO: With your instructor's help (live coding):camp/Emmet/Day 2 - Raindrops/00-TODOs.py:148
 #   - Put your name as an author.
 #   - Make the game loop be able to stop more gracefully.
                                                                                                 

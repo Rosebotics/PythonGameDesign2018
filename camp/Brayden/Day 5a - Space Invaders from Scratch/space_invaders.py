@@ -2,6 +2,7 @@ import pygame, sys, random, time
 from pygame.locals import *
 
 
+
 class Missile:
     def __init__(self, screen, x, y):
         # Store the data.  Initialize:   y to 591   and   exploded to False.
@@ -58,7 +59,8 @@ class Badguy:
         self.screen = screen
         self.x = x
         self.y = y
-        self.image = pygame.image.load("badguy.png")
+        self.image = pygame.image.load("cat.png")
+        self.image = pygame.image.t
         self.image.set_colorkey((0, 0, 0))
         self.moving_right = True
         self.original_x = x
@@ -123,7 +125,8 @@ def main():
     clock = pygame.time.Clock()
     pygame.display.set_caption("Space Invaders")
     screen = pygame.display.set_mode((640, 650))
-
+    screen.fill((244, 105, 180))  # hot pink
+    #
     # TODO: Set    enemy_rows    to an initial value of 3.
     # TODO: Create an EnemyFleet object (called enemy) with the screen and enemy_rows
     # TODO: Create a Fighter (called fighter) at location  320, 590
@@ -141,7 +144,7 @@ def main():
                 fighter.fire()
             if event.type == QUIT:
                 sys.exit()
-        screen.fill((0, 0, 0))
+        screen.fill((244, 105, 180))
         if pressed_keys[pygame.K_LEFT]:
             fighter.x = fighter.x - 3
         if pressed_keys[pygame.K_RIGHT]:
