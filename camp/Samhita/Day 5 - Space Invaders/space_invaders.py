@@ -102,6 +102,9 @@ def main():
     # TODO: Set    enemy_rows    to an initial value of 3.
     # TODO: Create an EnemyFleet object (called enemy) with the screen and enemy_rows
     # TODO: Create a Fighter (called fighter) at location  320, 590
+    enemy_rows = 3
+    enemy = EnemyFleet(screen, enemy_rows)
+    fighter = Fighter(screen, 320, 590)
 
     while True:
         clock.tick(60)

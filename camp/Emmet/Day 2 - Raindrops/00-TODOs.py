@@ -141,14 +141,14 @@ def main():
         pressed_keys = pygame.key.get_pressed()
 
         if pressed_keys[pygame.K_RIGHT]:
-            hero.move(1, 0)
+            hero.move(27, 0)
         if pressed_keys[pygame.K_LEFT]:
-            hero.move(-1, 0)
+            hero.move(-27, 0)
         if pressed_keys[pygame.K_UP]:
-            hero.move(0, -1)
+            hero.move(0, -27)
         if pressed_keys[pygame.K_DOWN]:
-            hero.move(0, 1)
-        cloud.rain()
+            hero.move(0, 27)
+
         cloud.move(4,0)
         pygame.display.update()
     # TODO: Inside the game loop, get the list of keys that are currently pressed.

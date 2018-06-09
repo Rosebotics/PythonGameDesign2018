@@ -61,19 +61,19 @@ class Badguy:
         self.y = y
         self.image = pygame.image.load("badguy.png").convert()
         self.moving_right = True
-        self.orignal_x = x
-
+        self.original_x = x
+        self.dead = False
     def move(self):
         # Move 2 units in the current direction.
         # Switch direction if this Badguy's position is more than 100 pixels from its original position.
         if self.moving_right:
             self.x = self.x + 2
-        if self.x = self.x + 2
-        self.moving_right = False
-      else:
-        self.x = self.x - 2
+        else:
+            self.x = self.x - 2
         if self.x < self.original_x - 100:
             self.moving_right = True
+        if self.x > self.original_x + 100:
+            self.moving_right = False
 
     def draw(self):
         # Draw this Badguy, using its image at its current (x, y) position.
@@ -169,16 +169,17 @@ def main():
 
         # TODO: Use the fighter to remove exploded missiles
         # TODO: Use the enemy to remove dead badguys
-          for badguy in enemy.badguys:
-              for m in fighter.missiles:
-                  if badguy.hit_by(m)
-                      badguy.dead = True
+        for badguy in enemy.badguys:
+            for m in fighter.missiles:
+                if badguy.hit_by(m):
+                    badguy.dead = True
                     
 
         # TODO: If the enemy id_defeated
         #     TODO: Increment the enemy_rows
         #     TODO: Create a new enemy with the screen and enemy_rows
-
+        fighter.remove_exploded_missles()
+        enemy.remove_dead_badguys()
         pygame.display.update()
 
 
