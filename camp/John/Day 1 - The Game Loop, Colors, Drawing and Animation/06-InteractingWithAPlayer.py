@@ -27,6 +27,10 @@ while True:
         zpos = zpos - 10
     if pressed_keys[pygame.K_DOWN]:
         zpos = zpos + 10
+    if pressed_keys[pygame.K_1]:
+        zpos = zpos + 100
+    if pressed_keys[pygame.K_2]:
+        zpos = zpos - 100
 
     screen.fill((0, 167, 255))
 
