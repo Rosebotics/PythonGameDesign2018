@@ -53,12 +53,12 @@ class Badguy:
             self.x = self.x + 2
             if self.x > self.original_x + 100:
                 self.moving_right = False
-                self.y = self.y + 150
+                self.y = self.y + 50
         else:
             self.x = self.x - 2
             if self.x < self.original_x - 100:
                 self.moving_right = True
-                self.y = self.y + 150
+                self.y = self.y + 50
 
     def draw(self):
         self.screen.blit(self.image, (self.x, self.y))
@@ -92,6 +92,20 @@ class EnemyFleet:
                 del self.badguys[k]
 
 
+class ScoreBoard:
+    def __init__(self, screen, x, y):
+        self.screen = screen
+        self.x = x
+        self.y = y
+        self.score = 0
+        self.font = pygame.font.Font(None, 30)
+
+    def draw(self):
+        as_text = "Score: " + str(self.score)
+        as_image = self.font.render(as_text, True, (255, 255, 255))
+        self.screen.blit(as_image, (self.x, self.y))
+
+
 def main():
     game_over = False
     pygame.init()
@@ -102,6 +116,7 @@ def main():
     enemy_rows = 3
     enemy = EnemyFleet(screen, enemy_rows)
     fighter = Fighter(screen, 320, 590)
+    scoreboard = ScoreBoard(screen, 5, 5)
     while True:
         clock.tick(60)
         for event in pygame.event.get():
@@ -120,6 +135,7 @@ def main():
 
         enemy.move()
         enemy.draw()
+        scoreboard.draw()
 
         for missile in fighter.missiles:
             missile.move()
@@ -128,6 +144,7 @@ def main():
         for badguy in enemy.badguys:
             for missile in fighter.missiles:
                 if badguy.hit_by(missile):
+                    scoreboard.score = scoreboard.score + 100
                     badguy.dead = True
                     missile.exploded = True
 
@@ -138,14 +155,15 @@ def main():
             enemy_rows = enemy_rows + 1
             enemy = EnemyFleet(screen, enemy_rows)
 
-        # New code to check for your death!
-        for badguy in enemy.badguys:
-            if badguy.y > 590:
-                print("You just lost!")
-                game_over = True
-
         if not game_over:
             pygame.display.update()
 
+            # New code to check for your death!
+            for badguy in enemy.badguys:
+                if badguy.y > 545:
+                    game_over = True
+                    game_over_image = pygame.image.load("gameover.png").convert()
+                    screen.blit(game_over_image, (170, 200))
+                    pygame.display.update()
 
 main()
