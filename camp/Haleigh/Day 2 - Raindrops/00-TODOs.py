@@ -49,7 +49,7 @@ class Hero:
         self.without_umbrella = without_umbrella
         self.last_hit_time = 0
         self.image_umbrella = pygame.image.load(self.with_umbrella).convert()
-        pass
+
 
     def draw(self):
         # TODO. Draw (blit) this Hero, at this Hero's position, as follows:
