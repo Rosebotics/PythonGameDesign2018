@@ -102,6 +102,9 @@ def main():
     # TODO: Set    enemy_rows    to an initial value of 3.
     # TODO: Create an EnemyFleet object (called enemy) with the screen and enemy_rows
     # TODO: Create a Fighter (called fighter) at location  320, 590
+    enemy_rows = 3
+    enemy = EnemyFleet(screen, enemy_rows)
+    fighter = Fighter(screen, 320, 590)
 
     while True:
         clock.tick(60)
@@ -115,9 +118,9 @@ def main():
         # TODO: If K_LEFT is pressed move the fighter left 3
         # TODO: If K_RIGHT is pressed move the fighter right 3
         # TODO: Draw the fighter
-
+        fighter.draw()
         # TODO: Move the enemy
-        # TODO: Draw the enemy
+
 
         # TODO: For each missle in the fighter missiles
         # TODO: Move the missle
@@ -134,7 +137,7 @@ def main():
         # TODO: Use the enemy to remove dead badguys
 
 
-        # TODO: If the enemy id_defeated
+        # TODO: If the enemy is_defeated
         #     TODO: Increment the enemy_rows
         #     TODO: Create a new enemy with the screen and enemy_rows
 
