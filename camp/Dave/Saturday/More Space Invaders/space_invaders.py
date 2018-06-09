@@ -175,7 +175,6 @@ def main():
                     game_over = True
                     # DONE: Uncomment the line below to create a game_over_image.
                     game_over_image = pygame.image.load("gameover.png").convert()
-
                     # DONE: Use the screen to blit the game_over_image to location 170 200
                     screen.blit(game_over_image, (170, 200))
 
