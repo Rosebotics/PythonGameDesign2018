@@ -17,7 +17,6 @@ class Bomb:
 
 class Missile:
     def __init__(self, screen, x):
-        # Store the data.  Initialize:   y to 591   and   exploded to False.
         self.exploded = False
         self.y = 920
         self.screen = screen
@@ -72,6 +71,7 @@ class Badguy:
         self.screen = screen
         self.x = x
         self.y = y
+        self.bombs = []
         self.image = pygame.image.load("badguy.png").convert()
         self.moving_right = True
         self.original_x = x
@@ -99,6 +99,13 @@ class Badguy:
         #   collides with a point the given missile's current position.
         # Return False otherwise.
         return pygame.Rect(self.x, self.y, 70, 45).collidepoint(missile.x, missile.y)
+
+    def fire(self):
+        b = Bomb(self.screen, self.x - 50)
+        self.bombs.append(b)
+
+
+
 
 
 
@@ -151,6 +158,8 @@ def main():
                 sys.exit()
             if pressed_keys[pygame.K_SPACE] and event.type == KEYDOWN:
                 fighter.fire()
+            if pressed_keys[pygame.K_SPACE]:
+                badguy.fire()
         screen.fill((0, 0, 0))
         pressed_keys = pygame.key.get_pressed()
         # TODO: If K_LEFT is pressed move the fighter le   ft 3
