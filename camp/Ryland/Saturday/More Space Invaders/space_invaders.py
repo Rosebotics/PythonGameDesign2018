@@ -43,7 +43,7 @@ class Badguy:
         self.screen = screen
         self.x = x
         self.y = y
-        self.image = pygame.image.load("badguy.png").convert()
+        self.image = pygame.image.load("/home/csse/PyCharmProjets/github/PythonGameDesign2018/camp/Samhita/Day 5a - Space Invaders from Scratch/24752-5-spaceship-thumb.png").convert()
         self.image.set_colorkey((0, 0, 0))
         self.original_x = x
         self.moving_right = True
