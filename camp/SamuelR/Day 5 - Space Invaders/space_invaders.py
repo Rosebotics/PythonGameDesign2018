@@ -120,6 +120,7 @@ def main():
         if pressed_key[pygame.K_RIGHT] and fighter.x < 590:
             fighter.x = fighter.x + 3
 
+
         fighter.draw()
 
 
