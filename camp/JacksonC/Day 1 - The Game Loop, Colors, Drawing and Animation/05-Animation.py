@@ -26,7 +26,7 @@ while True:
      nose_y_position = nose_y_position + 1
      if nose_y_position > 400:
 
-     pygame.draw.circle(screen, (255, 0, 0), (320, nose_y_position), 20, 0)
+          pygame.draw.circle(screen, (255, 0, 0), (320, nose_y_position), 20, 0)
      # mouth
      pygame.draw.rect(screen, (0, 0, 0),     (200, 320, 240, 30))
 
