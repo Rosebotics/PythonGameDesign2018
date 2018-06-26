@@ -164,9 +164,9 @@ def main():
             for badguy in enemy.badguys:
                 if badguy.y > 545:
                     game_over = True
-                    # TODO: Uncomment the line below to create a game_over_image.
-                    # game_over_image = pygame.image.load("gameover.png").convert()
-                    # TODO: Use the screen to blit the game_over_image to location 170 200
-                    # TODO: Do one final pygame display update
+                    game_over_image = pygame.image.load("gameover.png").convert()
+                    screen.blit(game_over_image, (170, 200))
+                    pygame.display.update()
+
 
 main()

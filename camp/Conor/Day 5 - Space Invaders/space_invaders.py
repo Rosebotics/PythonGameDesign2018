@@ -54,12 +54,12 @@ class Badguy:
             self.x = self.x + 2
             if self.x > self.original_x + 100:
                 self.moving_right = False
-                self.y = self.y + 15
+                self.y = self.y + 150
         else:
             self.x = self.x - 2
             if self.x < self.original_x - 100:
                 self.moving_right = True
-                self.y = self.y + 15
+                self.y = self.y + 150
 
     def draw(self):
         self.screen.blit(self.image, (self.x, self.y))
@@ -92,6 +92,23 @@ class EnemyFleet:
             if self.badguys[k].dead:
                 del self.badguys[k]
 
+class Scoreboard:
+    def __init__(self, screen, x, y):
+        self.screen = screen
+        self.x = x
+        self.y = y
+        self.score = 0
+        self.font = pygame.font.Font(None, 30)
+
+
+
+    def draw(self):
+        as_text = "Score: " + str(self.score)
+        as_image = self.font.render(as_text, True, (255, 255, 255))
+        self.screen.blit(as_image,(self.x, self.y))
+
+
+
 
 def main():
     pygame.init()
@@ -103,6 +120,7 @@ def main():
     enemy_rows = 3
     enemy = EnemyFleet(screen, enemy_rows)
     fighter = Fighter(screen, 320, 590)
+    scoreboard = Scoreboard(screen, 5, 5)
 
     while True:
         clock.tick(60)
@@ -123,6 +141,7 @@ def main():
         fighter.draw()
         enemy.move()
         enemy.draw()
+        scoreboard.draw()
 
         for missile in fighter.missiles:
             missile.move()
@@ -133,6 +152,7 @@ def main():
                 if badguy.hit_by(missile):
                     badguy.dead = True
                     missile.exploded = True
+                    scoreboard.score = scoreboard.score + 20
 
         fighter.remove_exploded_missles()
 
@@ -144,12 +164,18 @@ def main():
 
             #Check for your death
             for badguy in enemy.badguys:
-                if badguy > 500:
+                if badguy.y > 455:
                     print("Game Over")
                     game_over = True
+                    game_over_image = pygame.image.load("gameover.png").convert()
+                    screen.blit(game_over_image, (170, 200))
 
         if not game_over:
             pygame.display.update()
+
+
+
+
 
 
 

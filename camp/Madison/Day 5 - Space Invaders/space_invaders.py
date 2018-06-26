@@ -110,7 +110,7 @@ def main():
             # TODO: If the event type is KEYDOWN and pressed_keys[K_SPACE} is True, then fire a missile
             if event.type == QUIT:
                 sys.exit()
-        screen.fill((0, 0, 0))
+        screen.fill((15, 255, 190))
         pressed_keys = pygame.key.get_pressed()
         # TODO: If K_LEFT is pressed move the fighter left 3
         # TODO: If K_RIGHT is pressed move the fighter right 3

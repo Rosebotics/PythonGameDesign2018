@@ -13,7 +13,7 @@ class Missile:
         self.y = self.y - 5
 
     def draw(self):
-        pygame.draw.line(self.screen, (255, 0, 0), (self.x, self.y), (self.x, self.y + 8), 1)
+        pygame.draw.line(self.screen, (59, 13, 255), (self.x, self.y), (self.x, self.y + 8), 7)
 
 
 class Fighter:
@@ -94,18 +94,27 @@ class EnemyFleet:
 
 class Scoreboard:
     def __init__(self, screen, x, y):
-        # TODO: Save the screen to a field
-        # TODO: Save the x and y to fields
-        # TODO: Initialize a score field with a value of 0
-        # TODO: Create a font object with a 30 point font (this is new)
-        pass
+        # DONE: Save the screen to a field
+        self.screen = screen
+        # DONE: Save the x and y to fields
+        self.x = x
+        self.y = y
+        # DONE: Initialize a score field with a value of 0
+        self.score = 0
+        # DONE: Create a font object with a 30 point font (this is new)
+        self.font = pygame.font.Font(None, 30)
+
 
 
     def draw(self):
-        # TODO: Convert the score number into a string called as_text using the format "Score: " + number
-        # TODO: Using the font object convert the string into an image that can be placed onto the screen, call it as_image
-        # TODO: Using the screen blit as_image onto the location self.x and self.y
-        pass
+        # DONE: Convert the score number into a string called as_text using the format "Score: " + number
+        as_text = 'Score: ' + str(self.score)
+
+        # DONE: Using the font object convert the string into an image that can be placed onto the screen, call it as_image
+        as_image = self.font.render(as_text, True, (204, 0, 204))
+        # DONE: Using the screen blit as_image onto the location self.x and self.y
+        self.screen.blit(as_image, (self.x, self.y))
+
 
 
 def main():
@@ -118,7 +127,8 @@ def main():
     enemy_rows = 3
     enemy = EnemyFleet(screen, enemy_rows)
     fighter = Fighter(screen, 320, 590)
-    # TODO: Create a Scoreboard, called scoreboard, using the screen at location 5, 5
+    # DONE: Create a Scoreboard, called scoreboard, using the screen at location 5, 5
+    scoreboard = Scoreboard(screen, 5, 5)
     while True:
         clock.tick(60)
         for event in pygame.event.get():
@@ -137,8 +147,8 @@ def main():
 
         enemy.move()
         enemy.draw()
-        # TODO: Draw the scoreboard
-
+        # DONE: Draw the scoreboard
+        scoreboard.draw()
         for missile in fighter.missiles:
             missile.move()
             missile.draw()
@@ -146,7 +156,8 @@ def main():
         for badguy in enemy.badguys:
             for missile in fighter.missiles:
                 if badguy.hit_by(missile):
-                    # TODO: Increment the score of the scoreboard by 100
+                    # DONE: Increment the score of the scoreboard by 100
+                    scoreboard.score = scoreboard.score + 100
                     badguy.dead = True
                     missile.exploded = True
 
@@ -164,9 +175,11 @@ def main():
             for badguy in enemy.badguys:
                 if badguy.y > 545:
                     game_over = True
-                    # TODO: Uncomment the line below to create a game_over_image.
-                    # game_over_image = pygame.image.load("gameover.png").convert()
-                    # TODO: Use the screen to blit the game_over_image to location 170 200
-                    # TODO: Do one final pygame display update
+                    # DONE: Uncomment the line below to create a game_over_image.
+                    game_over_image = pygame.image.load("gameover.png").convert()
+                    # DONE: Use the screen to blit the game_over_image to location 170 200
+                    screen.blit(game_over_image, (170, 200))
+                    # DONE: Do one final pygame display update
+                    pygame.display.update()
 
 main()
