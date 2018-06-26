@@ -23,8 +23,15 @@ while True:
         kpos = kpos + 1
     if pressed_keys[pygame.K_LEFT]:
         kpos = kpos - 1
+    if pressed_keys[pygame.K_UP]:
+        xpos = xpos - 1
+    if pressed_keys[pygame.K_DOWN]:
+        xpos = xpos + 1
 
-    screen.fill((255, 105, 180))  # Hot pink
-    pygame.draw.circle(screen, (255, 0, 0), (xpos, 50), 30)
-    pygame.draw.rect(screen, (0, 0, 0), (kpos, 300, 100, 50))
+    screen.fill((200, 155, 255))  # Hot pink
+    pygame.draw.circle(screen, (0, 0, 255), (50, 50), 30)
+    pygame.draw.rect(screen, (0, 0, 0), (kpos, xpos, 100, 50))
+    for k in range(100):
+
+        pygame.draw.line(screen, (0,0,0), [50,50],[10*k,100], 1)
     pygame.display.update()

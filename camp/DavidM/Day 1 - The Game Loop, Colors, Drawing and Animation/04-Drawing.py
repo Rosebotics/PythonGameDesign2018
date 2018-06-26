@@ -11,9 +11,10 @@ while True:
         print(event)
         if event.type == pygame.QUIT:
             sys.exit()
-    screen.fill((255, 105, 180))  # Hot pink
-    pygame.draw.circle(screen, (255, 0, 0), (100, 50), 30)
-    pygame.draw.rect(screen, (0, 0, 0), (100, 300, 100, 50))
+    screen.fill((200, 155, 255))  # Hot pink
+    #pygame.draw.circle(screen, (200, 155, 255), (300, 150), 100)
+    #pygame.draw.rect(screen, (200, 155, 255), (0, 0, 400, 200))
+    pygame.draw.polygon(screen, (111, 222, 212), [(7,6),(50,100),(100,50)], 6)
     pygame.display.update()
 
 

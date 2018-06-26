@@ -16,8 +16,8 @@ while True:
         print(event)
         if event.type == pygame.QUIT:
             sys.exit()
-    xpos = xpos + 1
-    screen.fill((255, 105, 180))  # Hot pink
-    pygame.draw.circle(screen, (255, 0, 0), (xpos, 50), 30)
+    xpos = xpos + 5
+    screen.fill((200, 155, 255))  # Hot pink
+    pygame.draw.circle(screen, (0, 255, 0), (xpos, 50), 30)
     pygame.draw.rect(screen, (0, 0, 0), (100, 300, 100, 50))
     pygame.display.update()
