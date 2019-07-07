@@ -29,7 +29,7 @@ while True:
     pygame.draw.circle(screen, (255, 255, 255,), (255, 255), 110)
     pygame.display.update()
     pygame.display.update()
-# TODO: With your instructor's help (live coding):camp/Emmet/Day 2 - Raindrops/00-TODOs.py:148
+# TODO: With your instructor's help (live coding):camp/Emmet/Raindrops/MikesRainyDay.py:148
 #   - Put your name as an author.
 #   - Make the game loop be able to stop more gracefully.
                                                                                                 
