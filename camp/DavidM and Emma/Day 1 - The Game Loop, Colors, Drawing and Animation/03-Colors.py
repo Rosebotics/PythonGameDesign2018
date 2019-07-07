@@ -20,7 +20,7 @@ while True:
         print(event)
         if event.type == pygame.QUIT:
             sys.exit()
-    screen.fill((255, 105, 180))  # Hot pink
+    screen.fill((200, 155, 255))  # Hot pink
     pygame.display.update()
 
 
